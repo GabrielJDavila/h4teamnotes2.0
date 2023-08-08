@@ -4,9 +4,11 @@ export default function Login() {
         <div className="login-background">
                 <h1 className="app-title">H4 Team Notes</h1>
                 <form className="login-form">
-                    <h2>Login</h2>
+                    
                     <div className="logininput-container">
-                        <label>Email:</label>
+                        <label>
+                            <p className="email-input">EMAIL</p>
+                        </label>
                         <input
                             name="email"
                             type="email"
@@ -17,7 +19,9 @@ export default function Login() {
                     </div>
                     
                     <div className="logininput-container">
-                        <label>Password:</label>
+                        <label>
+                            <p className="pass-input">PASSWORD</p>
+                        </label>
                         <input
                             name="password"
                             type="password"

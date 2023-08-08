@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -66,4 +66,122 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* login page */
+
+.login-background {
+  text-align: center;
+  margin-top: 12rem;
+}
+
+.app-title {
+  font-family: 'League Spartan', sans-serif;
+  color: rgb(37, 175, 255);
+  font-size: 3rem;
+}
+
+.login-form {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  justify-content: center;
+  margin: 0 auto
+}
+
+.email-input, .pass-input {
+  color: grey;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.logininput-container {
+  width: 80%;
+}
+
+.login-item {
+  border: none;
+  background: rgb(235, 235, 235);
+  text-align: center;
+  font-size: 1rem;
+  padding: .75rem 0;
+  margin-bottom: 1rem;
+  width: 100%;
+  align-items: center;
+  border-radius: 6px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.login-btn {
+  margin-top: 1rem;
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.25rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  background: rgb(37, 175, 255);
+  color: white;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+/* header component */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1rem;
+}
+
+.back-btn {
+  background: rgb(37, 175, 255);
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: white;
+}
+
+.header-team {
+  font-family: 'League Spartan', sans-serif;
+  color: rgb(37, 175, 255);
+  font-size: 1.5rem;
+}
+
+.logout-btn {
+  
+  border: none;
+  background: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.home-btn-container {
+  margin: 0 auto 1rem auto;
+}
+
+.home-btn {
+  background: rgb(37, 175, 255);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
 }
