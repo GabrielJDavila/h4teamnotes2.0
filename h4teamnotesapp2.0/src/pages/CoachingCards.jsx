@@ -2,7 +2,7 @@
 export default function CoachingCards() {
     return (
         <div>
-            Coaching Cards
+            Coaching Cards Page
         </div>
     )
 }

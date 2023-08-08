@@ -2,7 +2,7 @@
 export default function GymEvents() {
     return (
         <div>
-            Gym Events
+            Gym Events Page
         </div>
     )
 }

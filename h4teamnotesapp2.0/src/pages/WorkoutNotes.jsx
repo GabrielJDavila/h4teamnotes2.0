@@ -2,7 +2,7 @@
 export default function WorkoutNotes() {
     return (
         <div>
-            Workout Notes
+            Workout Notes Page
         </div>
     )
 }

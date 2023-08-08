@@ -175,6 +175,38 @@ body {
   font-size: 1rem;
 }
 
+
+/* portals to other components styles */
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.folder-container {
+  position: relative;
+}
+
+.fa-folder {
+  color: rgb(37, 175, 255);
+  font-size: 150px;
+  position: relative;
+}
+
+.nav-link {
+  color: white;
+  position: absolute;
+  margin: auto;
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  bottom: 15px;
+  left: 15px;
+  text-decoration: none;
+}
+
+/* home button styles */
 .home-btn-container {
   margin: 0 auto 1rem auto;
 }

@@ -2,7 +2,7 @@
 export default function ShiftSchedule() {
     return (
         <div>
-            Schedule
+            Schedule Page
         </div>
     )
 }

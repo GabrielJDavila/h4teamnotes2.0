@@ -2,7 +2,7 @@
 export default function ClientNotes() {
     return (
         <div>
-            Client Notes
+            Client Notes Page
         </div>
     )
 }
