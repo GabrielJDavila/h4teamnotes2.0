@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 
 export default function Dashboard() {
 
@@ -12,45 +12,57 @@ export default function Dashboard() {
     return (
         <main className="dashboard">
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link to="clientNotes" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Client Notes
+                    </p>
+                </Link>
             </div>
 
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link to="coachingCards" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Coaching Cards
+                    </p>
+                </Link>
             </div> 
 
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link to="workoutNotes" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Workout Notes
+                    </p>
+                </Link>
             </div> 
 
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link  to="gymEvents" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Events
+                    </p>
+                </Link>
             </div> 
 
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link to="shiftSchedule" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Schedule
+                    </p>
+                </Link>
             </div>
 
             <div className="folder-container">
-                <i className="fa-solid fa-folder"></i>
-                <NavLink to="clientNotes" className="nav-link">
-                    Client Notes
-                </NavLink>
+                <Link to="timeOffSheet" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        Request Time Off
+                    </p>
+                </Link>
             </div>         
 
             {/* <NavLink to="coachingCards">

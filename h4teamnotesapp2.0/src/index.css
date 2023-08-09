@@ -195,15 +195,24 @@ body {
   position: relative;
 }
 
-.nav-link {
+.link-portal {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.link-text {
   color: white;
   position: absolute;
-  margin: auto;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 120px;
   font-size: 1.5rem;
   font-family: 'Montserrat', sans-serif;
-  bottom: 15px;
-  left: 15px;
   text-decoration: none;
+  text-align: center;
 }
 
 /* home button styles */
