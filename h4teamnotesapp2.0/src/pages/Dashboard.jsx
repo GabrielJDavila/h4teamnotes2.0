@@ -2,20 +2,13 @@ import { NavLink, Link } from "react-router-dom"
 
 export default function Dashboard() {
 
-    // const styles = {
-    //     backgroundImage: "/folder-solid.svg",
-    //     backgroundSize: "cover",
-    //     backgroundColor: "blue",
-    //     color: "white",
-    //     height: "400px"
-    // }
     return (
         <main className="dashboard">
             <div className="folder-container">
                 <Link to="clientNotes" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Client Notes
+                        CLIENT NOTES
                     </p>
                 </Link>
             </div>
@@ -24,7 +17,7 @@ export default function Dashboard() {
                 <Link to="coachingCards" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Coaching Cards
+                        COACHING CARDS
                     </p>
                 </Link>
             </div> 
@@ -33,7 +26,7 @@ export default function Dashboard() {
                 <Link to="workoutNotes" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Workout Notes
+                        WORKOUT NOTES
                     </p>
                 </Link>
             </div> 
@@ -42,7 +35,7 @@ export default function Dashboard() {
                 <Link  to="gymEvents" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Events
+                        EVENTS
                     </p>
                 </Link>
             </div> 
@@ -51,7 +44,7 @@ export default function Dashboard() {
                 <Link to="shiftSchedule" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Schedule
+                        SCHEDULE
                     </p>
                 </Link>
             </div>
@@ -60,7 +53,7 @@ export default function Dashboard() {
                 <Link to="timeOffSheet" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
-                        Request Time Off
+                        REQUEST TIME OFF
                     </p>
                 </Link>
             </div>         

@@ -148,32 +148,45 @@ body {
 .site-header {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content:left;
   padding: 0 1rem;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px .5px 5px 1px rgb(187, 187, 187);
 }
 
 .back-btn {
-  background: rgb(37, 175, 255);
   border: none;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  color: white;
+  background: none;
+  font-size: 2rem;
+  margin-right: 10px;
+  text-align: center;
+  color: rgb(37, 175, 255);
+  transition: all 0.3s ease-in-out;
+}
+
+.back-btn:hover, .logout-btn:hover {
+  color: rgb(24, 127, 187);
 }
 
 .header-team {
   font-family: 'League Spartan', sans-serif;
   color: rgb(37, 175, 255);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  transition: all 0.3s ease-in-out;
 }
 
+
+
 .logout-btn {
-  
+  color: rgb(179, 179, 179);
+  margin-left: auto;
   border: none;
   background: none;
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
+  font-weight: 400;
   letter-spacing: 2px;
+  transition: all 0.3s ease-in-out;
 }
 
 
@@ -210,11 +223,45 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 120px;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   text-align: center;
   letter-spacing: 2px;
+}
+
+/* client notes page styles */
+
+.client-notes-page-container {
+  font-family: "Montserrat", sans-serif;
+}
+
+.client-notes-title {
+  margin: 0 10px 30px 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgb(179, 179, 179);
+}
+.note {
+  display: flex;
+  flex-direction: column;
+  background: rgb(179, 179, 179);
+  padding: .5rem;
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  margin: 20px 10px;
+}
+
+.note-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.note-title {
+  margin-right: 10px;
+}
+
+.delete-note {
+  margin-left: auto;
 }
 
 /* home button styles */
@@ -226,5 +273,7 @@ body {
   background: rgb(37, 175, 255);
   color: white;
   border: none;
+  padding: 1rem;
+  border-radius: 50%;
   font-size: 1.5rem;
 }
