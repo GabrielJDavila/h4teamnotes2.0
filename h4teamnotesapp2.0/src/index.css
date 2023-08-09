@@ -173,6 +173,7 @@ body {
   background: none;
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
+  letter-spacing: 2px;
 }
 
 
@@ -209,10 +210,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 120px;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   text-align: center;
+  letter-spacing: 2px;
 }
 
 /* home button styles */
