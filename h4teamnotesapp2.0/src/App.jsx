@@ -19,9 +19,9 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="clientNotes" element={<ClientNotes />}/>
           <Route path="clientNotes/:id" element={<ClientNoteDetail/>}/>
-          <Route path="coachingCards" element={<CoachingCards />}/>
           <Route path="workoutNotes" element={<WorkoutNotes />}/>
           <Route path="gymEvents" element={<GymEvents />}/>
+          <Route path="coachingCards" element={<CoachingCards />}/>
           <Route path="shiftSchedule" element={<ShiftSchedule />}/>
           <Route path="timeOffSheet" element={<TimeSheet />}/>
         </Route>

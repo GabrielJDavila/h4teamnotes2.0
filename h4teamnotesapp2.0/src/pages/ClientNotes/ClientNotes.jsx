@@ -1,4 +1,6 @@
 import Note from "../../components/Note"
+import BackBtn from "../../components/BackBtn"
+import { Link } from "react-router-dom"
 
 export default function ClientNotes() {
 
@@ -19,7 +21,7 @@ export default function ClientNotes() {
             id: 3,
             title: "Wanda Pregnancy",
             date: "08/11/2023",
-            body: "text goues here. Morlagosjksljd. SKJskjhjnduie. fdjheh, sdsjkkjhf tofh eh ehb."
+            body: "text goues here. Morlagosjksljd. SKJskjhjnduie. fdjheh, sdsjkkjhf tofh eh ehb.nfjkdsnjkfnsdkjfsdnjk. dfbnejhbfehjdbfhdsbfjhsdb. jkehnjker, ejkhkje - dont wjnsajkf dd it."
         }
     ]
 
@@ -33,8 +35,13 @@ export default function ClientNotes() {
             />
         )
     })
+
+    // const search = location.state
+    // console.log(search)
+
     return (
         <div className="client-notes-page-container">
+            <BackBtn />
             <h2 className="client-notes-title">Client Notes</h2>
             <div className="client-notes-container">
                 {notes}

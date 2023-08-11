@@ -14,7 +14,7 @@ export default function Layout() {
     return (
         <div className="site-wrapper">
             <Header showLogin={showLogin}/>
-            <Outlet/>
+            <Outlet className="outlet"/>
             <HomeBtn/>
         </div>
     )

@@ -139,7 +139,6 @@ body {
 .site-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100vh;
 }
 
@@ -152,16 +151,8 @@ body {
   padding: 0 1rem;
   background: rgb(255, 255, 255);
   box-shadow: 0px .5px 5px 1px rgb(187, 187, 187);
-}
-
-.back-btn {
-  border: none;
-  background: none;
-  font-size: 2rem;
-  margin-right: 10px;
-  text-align: center;
-  color: rgb(37, 175, 255);
-  transition: all 0.3s ease-in-out;
+  margin-bottom: 2rem;
+  position: relative;
 }
 
 .back-btn:hover, .logout-btn:hover {
@@ -172,14 +163,49 @@ body {
   font-family: 'League Spartan', sans-serif;
   color: rgb(37, 175, 255);
   font-size: 1.75rem;
+  margin: 30px 0;
   transition: all 0.3s ease-in-out;
 }
 
+.fa-user {
+  color: rgb(37, 175, 255);
+  padding: 7px;
+  text-align: center;
+  border: 3px solid rgb(37, 175, 255);
+  border-radius: 50%;
+  font-size: 1.3rem;
+  margin-left: auto;
+}
 
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  background: whitesmoke;
+  position: absolute;
+  text-align: right;
+  width: 65%;
+  height: 400px;
+  top: 5.4rem;
+  right: 0;
+  padding: 15px 20px 15px 0;
+  z-index: 2;
+  gap: 20px;
+  overflow-y: hidden;
+  transition: .5s all ease;
+}
+
+.nav-item {
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: .5s all ease;
+}
 
 .logout-btn {
   color: rgb(179, 179, 179);
   margin-left: auto;
+  padding: 0;
   border: none;
   background: none;
   font-family: 'Montserrat', sans-serif;
@@ -197,6 +223,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  padding-top: 5rem;
 }
 
 .folder-container {
@@ -244,11 +271,12 @@ body {
 .note {
   display: flex;
   flex-direction: column;
-  background: rgb(179, 179, 179);
+  background: rgb(236, 236, 236);
   padding: .5rem;
   text-align: left;
   font-family: 'Montserrat', sans-serif;
-  margin: 20px 10px;
+  margin: 20px 20px;
+  
 }
 
 .note-title-container {
@@ -260,8 +288,26 @@ body {
   margin-right: 10px;
 }
 
-.delete-note {
+.note-text {
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-delete-container {
   margin-left: auto;
+}
+
+.fa-trash {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: black
+}
+
+.read-more-btn {
+  text-align: center;
+  text-decoration: none;
+  padding: 5px;
+  margin: 0 auto;
 }
 
 /* home button styles */
@@ -276,4 +322,28 @@ body {
   padding: 1rem;
   border-radius: 50%;
   font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  margin: 0 10px 30px;
+  text-align: center;
+  color: rgb(37, 175, 255);
+  transition: all 0.3s ease-in-out;
+}
+
+.back-btn-text {
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: underline;
+}
+
+.fa-arrow-left {
+  text-decoration: none;
 }

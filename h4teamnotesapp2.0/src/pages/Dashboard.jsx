@@ -14,28 +14,28 @@ export default function Dashboard() {
             </div>
 
             <div className="folder-container">
-                <Link to="coachingCards" className="link-portal">
-                    <i className="fa-solid fa-folder"></i>
-                    <p className="link-text">
-                        COACHING CARDS
-                    </p>
-                </Link>
-            </div> 
-
-            <div className="folder-container">
                 <Link to="workoutNotes" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
                         WORKOUT NOTES
                     </p>
                 </Link>
-            </div> 
+            </div>
 
             <div className="folder-container">
                 <Link  to="gymEvents" className="link-portal">
                     <i className="fa-solid fa-folder"></i>
                     <p className="link-text">
                         EVENTS
+                    </p>
+                </Link>
+            </div> 
+
+            <div className="folder-container">
+                <Link to="coachingCards" className="link-portal">
+                    <i className="fa-solid fa-folder"></i>
+                    <p className="link-text">
+                        COACHING CARDS
                     </p>
                 </Link>
             </div> 
