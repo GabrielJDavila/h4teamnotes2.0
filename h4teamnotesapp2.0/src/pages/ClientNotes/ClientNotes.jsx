@@ -1,50 +1,101 @@
+import { useState, useEffect } from "react"
 import Note from "../../components/Note"
 import BackBtn from "../../components/BackBtn"
 import { Link } from "react-router-dom"
+import { getFromCollection, addToCollection, clientNotes, deleteItem } from "../../firebase"
 
 export default function ClientNotes() {
+    const [noteData, setNoteData] = useState({
+        title: "",
+        date: "",
+        text: ""
+    })
+    const [notesFromDB, setNotesFromDB] = useState([])
 
-    const arr = [
-        {
-            id: 1,
-            title: "Byron Vertigo",
-            date: "08/09/2023",
-            body: "text goues here. Morlagosjksljd. SKJskjhjnduie. fdjheh, sdsjkkjhf tofh eh ehb."
-        },
-        {
-            id: 2,
-            title: "Jesse's Back",
-            date: "08/08/2023",
-            body: "text goues here. Morlagosjksljd. SKJskjhjnduie. fdjheh, sdsjkkjhf tofh eh ehb."
-        },
-        {
-            id: 3,
-            title: "Wanda Pregnancy",
-            date: "08/11/2023",
-            body: "text goues here. Morlagosjksljd. SKJskjhjnduie. fdjheh, sdsjkkjhf tofh eh ehb.nfjkdsnjkfnsdkjfsdnjk. dfbnejhbfehjdbfhdsbfjhsdb. jkehnjker, ejkhkje - dont wjnsajkf dd it."
+    async function loadData() {
+        try {
+            const data = await getFromCollection(clientNotes)
+            setNotesFromDB(data)
+        } catch(e) {
+            console.log("error fetching data: ", e)
         }
-    ]
+    }
 
-    const notes = arr.map(obj => {
+    useEffect(() => {
+        loadData()
+    }, [])
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        addToCollection(noteData.title, noteData.date, noteData.text, clientNotes)
+        loadData()
+    }
+
+    function handleChange(e) {
+        const {name, value} = e.target
+        setNoteData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    function handleClick(e) {
+        const itemId = e.target.id
+        deleteItem(clientNotes, itemId)
+        loadData()
+    }
+
+    const notes = notesFromDB.map(obj => {
         return (
             <Note
                 key={obj.id}
+                id={obj.id}
                 title={obj.title}
                 date={obj.date}
-                body={obj.body}
+                body={obj.text}
+                handleClick={(e) => handleClick(e)}
             />
         )
     })
 
-    // const search = location.state
-    // console.log(search)
-
     return (
-        <div className="client-notes-page-container">
+        <div className="notes-page-container">
             <BackBtn />
-            <h2 className="client-notes-title">Client Notes</h2>
-            <div className="client-notes-container">
-                {notes}
+            <form onSubmit={handleSubmit} className="add-new-note">
+                <h2>Add New Note</h2>
+                <div className="top-input-div">
+                    <input
+                        name="title"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="note title"
+                        value={noteData.title}
+                        className="input-item"
+                        required
+                    />
+                    <input
+                        name="date"
+                        onChange={handleChange}
+                        type="date"
+                        placeholder="date"
+                        value={noteData.date}
+                        className="input-item"
+                        required
+                    />
+                </div>
+                <textarea
+                    name="text"
+                    onChange={handleChange}
+                    placeholder="write note here"
+                    value={noteData.text}
+                    required
+                ></textarea>
+                <button className="submit-btn">add note</button>
+            </form>
+            
+            <h2 className="notes-page-title">Client Notes</h2>
+            <div className="notes-container">
+                {notesFromDB && notes}
             </div>
         </div>
     )
