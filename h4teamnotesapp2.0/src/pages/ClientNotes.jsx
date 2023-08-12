@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
-import Note from "../../components/Note"
-import BackBtn from "../../components/BackBtn"
+import Note from "../components/Note"
+import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
-import { getFromCollection, addToCollection, clientNotes, deleteItem } from "../../firebase"
+import { getFromCollection, addToCollection, clientNotes, deleteItem } from "../firebase"
 
 export default function ClientNotes() {
     const [noteData, setNoteData] = useState({
@@ -15,7 +15,8 @@ export default function ClientNotes() {
     async function loadData() {
         try {
             const data = await getFromCollection(clientNotes)
-            setNotesFromDB(data)
+            const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
+            setNotesFromDB(sortedData)
         } catch(e) {
             console.log("error fetching data: ", e)
         }

@@ -1,13 +1,18 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-export default function Header(props) {
-    const [backBtnState, setBackBtnState] = useState(props.showLogin)
+import { logout } from "../firebase"
+
+export default function Header() {
     const [openMenu, setOpenMenu] = useState(false)
 
     function toggleMenu() {
         setOpenMenu(prev => !prev)
     }
     
+    function signOutUser() {
+        logout()
+        window.location.reload()
+    }
     const menuStyles = {
         width: openMenu ? "65%" : "0",
         height: openMenu ? "420px": "0",
@@ -26,7 +31,7 @@ export default function Header(props) {
                 <Link to="coachingCards" onClick={toggleMenu} className="nav-item">Coaching Cards</Link>
                 <Link to="shiftSchedule" onClick={toggleMenu} className="nav-item">Schedule</Link>
                 <Link to="timeOffSheet" onClick={toggleMenu} className="nav-item">Time Off Sheet</Link>
-                <button className="logout-btn">LOGOUT</button>
+                <button onClick={signOutUser} className="logout-btn">LOGOUT</button>
             </nav>
         </header>
     )

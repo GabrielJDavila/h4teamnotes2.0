@@ -1,5 +1,11 @@
+import { useState } from "react"
+import { signIn, auth } from "../firebase"
 
 export default function Login() {
+    const [loginInfo, setLoginInfo] = useState({
+        email: "",
+        password: ""
+    })
     return (
         <div className="login-background">
                 <h1 className="app-title">H4 Team Notes</h1>

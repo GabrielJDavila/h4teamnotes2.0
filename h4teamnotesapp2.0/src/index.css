@@ -328,12 +328,12 @@ input, textarea {
   text-align: left;
   font-family: 'Montserrat', sans-serif;
   margin: 20px 20px;
-  
 }
 
 .note-title-container {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .note-title {
@@ -347,11 +347,13 @@ input, textarea {
 
 .edit-delete-container {
   margin-left: auto;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .fa-trash {
-  margin-left: 10px;
-  margin-right: 10px;
   color: black
 }
 

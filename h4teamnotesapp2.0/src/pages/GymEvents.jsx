@@ -14,7 +14,8 @@ export default function GymEvents() {
     async function loadData() {
         try {
             const data = await getFromCollection(gymNotes)
-            setNotesFromDB(data)
+            const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
+            setNotesFromDB(sortedData)
         } catch(e) {
             console.log("error fetching data: ", e)
         }
