@@ -25,6 +25,17 @@ export const clientNotes = collection(db, "clientnotes")
 export const workoutNotes = collection(db, "workoutnotes")
 export const gymNotes = collection(db, "gymnotes")
 
+// create new user
+// export async function createUser(email, password) {
+//     try {
+//         const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+//         console.log(userCredential.user)
+//     }
+//     catch(e) {
+//         console.log("error creating account: ", e)
+//     }
+// }
+
 // sign in app
 export async function signIn(email, password) {
     try {

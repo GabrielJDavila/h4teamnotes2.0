@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import {Outlet} from "react-router-dom"
+import { Outlet, Link } from "react-router-dom"
 import { signIn, auth } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Header from "./Header"
@@ -70,6 +70,7 @@ export default function Layout() {
                                 required
                             />
                         </div>
+                        
                         <button className="login-btn">Login</button>
                     </form>
             </div>

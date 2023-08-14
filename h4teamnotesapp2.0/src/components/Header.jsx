@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { logout } from "../firebase"
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false)
+    const menuRef = useRef(null)
+
+    
 
     function toggleMenu() {
         setOpenMenu(prev => !prev)
@@ -18,11 +21,30 @@ export default function Header() {
         height: openMenu ? "420px": "0",
         transition: openMenu ? ".2s all ease" : ""
     }
+    const handleClickOutside = (e) => {
+        if(menuRef.current && !menuRef.current.contains(e.target)) {
+            setOpenMenu(false)
+        }
+    }
+    document.addEventListener("click", handleClickOutside)
     
+    // useEffect(() => {
+    //     const handleClickOutside = (e) => {
+    //         if(!menuRef.current.contains(e.target)) {
+    //             setOpenMenu(false)
+    //         }
+    //     }
+    //     document.addEventListener("click", handleClickOutside)
+
+    //     return () => {
+    //         document.removeEventListener("click", handleClickOutside)
+    //     }
+    // }, [])
+
     return (
         <header className="site-header">
             <h4 className="header-team">Team Wheaton</h4>
-            <i className="fa-regular fa-user" onClick={toggleMenu}></i>
+            <i ref={menuRef} className="fa-regular fa-user" onClick={toggleMenu}></i>
             <nav className="side-nav" style={menuStyles}>
                 <Link to="/" onClick={toggleMenu} className="nav-item">Dashboard</Link>
                 <Link to="clientNotes" onClick={toggleMenu} className="nav-item">Client Notes</Link>

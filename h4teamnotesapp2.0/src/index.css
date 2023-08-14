@@ -136,6 +136,16 @@ body {
   color: white;
 }
 
+/* .create-acct-link {
+  color:rgb(37, 175, 255);
+  text-decoration: underline;
+  font-size: 1.25rem;
+}
+
+.create-acct-link:visited {
+  color: rgb(37, 175, 255);
+} */
+
 .site-wrapper {
   display: flex;
   flex-direction: column;
@@ -396,6 +406,15 @@ input, textarea {
   font-size: 1.25rem;
   font-family: 'Montserrat', sans-serif;
   text-decoration: underline;
+  transition: all 0.3s ease-in-out;
+}
+
+.back-btn:visited, .back-btn-text:visited {
+  color:rgb(37, 175, 255)
+}
+
+.back-btn:hover, .back-btn-text:hover {
+  color: rgb(24, 127, 187);
 }
 
 .fa-arrow-left {

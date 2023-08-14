@@ -57,26 +57,6 @@ export default function Dashboard() {
                     </p>
                 </Link>
             </div>         
-
-            {/* <NavLink to="coachingCards">
-                Coaching Cards
-            </NavLink>
-
-            <NavLink to="workoutNotes">
-                Workout Notes
-            </NavLink>
-
-            <NavLink to="gymEvents">
-                Gym Events
-            </NavLink>
-
-            <NavLink to="shiftSchedule">
-                Shift Schedule
-            </NavLink>
-
-            <NavLink to="timeOffSheet">
-                Time Off Sheet
-            </NavLink> */}
         </main>
     )
 }
