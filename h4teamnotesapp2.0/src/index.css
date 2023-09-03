@@ -309,7 +309,7 @@ input, textarea {
   border-radius: 4px;
 }
 
-.submit-btn {
+.submit-btn, .modal-submit, .add-new-client {
   border: none;
   border-radius: 4px;
   width: 80px;
@@ -321,7 +321,7 @@ input, textarea {
   transition: .3s all ease-in-out;
 }
 
-.submit-btn:hover {
+.submit-btn:hover, .modal-submit:hover, .add-new-client:hover {
   background-color: rgb(24, 127, 187);
 }
 
@@ -372,6 +372,75 @@ input, textarea {
   text-decoration: none;
   padding: 5px;
   margin: 0 auto;
+}
+
+/* coaching cards page */
+
+.coaching-cards-page-container {
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+
+.add-new-client {
+  margin-left: 1rem;
+  width: 150px;
+  cursor: pointer;
+}
+
+.add-client-modal {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid rgb(203, 203, 203);
+  padding: .5rem 1rem;
+  height: 500px;
+  box-shadow: 0 0 15px 1px rgb(203, 203, 203);
+}
+
+.coaching-cards-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.fa-x {
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: rgb(37, 175, 255);
+  cursor: pointer;
+}
+
+.add-new-client-text {
+  height: 300px;
+}
+
+.search-clients {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.search-title {
+  text-align: left;
+}
+
+.search-bar {
+  width: 70%;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+}
+
+.search-btn {
+  margin: 0;
+  width: 30%;
 }
 
 /* home button styles */
