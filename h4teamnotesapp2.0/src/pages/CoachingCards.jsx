@@ -2,12 +2,68 @@ import { useState, useEffect, useRef } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
-import { getFromCollection, addToCollection, clientNotes, deleteItem } from "../firebase"
+import { getFromCollection, addToCollection, coachingCards } from "../firebase"
 
 
 export default function CoachingCards() {
     const [openModal, setOpenModal] = useState(false)
+    const [card, setCard] = useState({
+        title: "",
+        date: "",
+        text: ""
+    })
+    const [searchQuery, setSearchQuery] = useState({
+        search: ""
+    })
+
+    const [cardsFromDB, setCardsFromDB] = useState([])
+    const [filteredItems, setFilteredItems] = useState([])
     const menuRef = useRef(null)
+
+    async function loadData() {
+        try {
+            const data = await getFromCollection(coachingCards)
+            // const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
+            setCardsFromDB(data)
+        } catch(e) {
+            console.log("error fetching data: ", e)
+        }
+    }
+
+    useEffect(() => {
+        loadData()
+    }, [])
+
+    useEffect(() => {
+        const filteredCards = cardsFromDB.filter(card => {
+            return card.title.toLowerCase().startsWith(searchQuery.search.toLowerCase())
+        })
+        setFilteredItems(filteredCards)
+    }, [searchQuery, cardsFromDB])
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        addToCollection(card.title, card.date, card.text, coachingCards)
+        loadData()
+        window.location.reload()
+    }
+
+    function handleChange(e) {
+        const {name, value} = e.target
+        setCard(prev => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
+    function handleSearch(e) {
+        const {name, value} = e.target
+        setSearchQuery(prev => ({
+            ...prev,
+            [name]: value
+        }))
+
+    }
 
     function toggleModal() {
         setOpenModal(prev => !prev)
@@ -17,6 +73,18 @@ export default function CoachingCards() {
         display: openModal ? "flex" : "none"
     }
 
+    const cards = filteredItems.map(obj => {
+        return (
+            <Note
+                key={obj.id}
+                id={obj.id}
+                title={obj.title}
+                date={obj.date}
+                body={obj.text}
+                handleClick={(e) => handleClick(e)}
+            />
+        )
+    })
     // const handleClickOutside = (e) => {
     //     if(menuRef.current && !menuRef.current.contains(e.target)) {
     //         setOpenModal(false)
@@ -28,21 +96,25 @@ export default function CoachingCards() {
         <div className="coaching-cards-page-container">
             <BackBtn />
             <button onClick={toggleModal} className="add-new-client">Add new client</button>
-            <form className="add-client-modal" style={modalDisplay}>
+            <form onSubmit={handleSubmit} className="add-client-modal" style={modalDisplay}>
                 <div className="coaching-cards-title-container">
                     <h3 className="modal-title">Add new client</h3>
                     <i className="fa-solid fa-x" onClick={toggleModal}></i>
                 </div>
                 <div className="top-input-div">
                     <input
-                        name="name"
+                        name="title"
+                        onChange={handleChange}
                         type="text"
+                        value={card.title}
                         placeholder="client name"
                         className="modal-input"
                     />
                     <input
-                        name="birthdate"
+                        name="date"
                         type="date"
+                        onChange={handleChange}
+                        value={card.date}
                         placeholder="birthdate"
                         className="input-item birthdate"
                         required
@@ -50,6 +122,8 @@ export default function CoachingCards() {
                 </div>
                 <textarea
                     name="text"
+                    onChange={handleChange}
+                    value={card.text}
                     placeholder="client notes"
                     className="add-new-client-text"
                     required
@@ -62,17 +136,18 @@ export default function CoachingCards() {
                     <input
                         name="search"
                         type="search"
+                        onChange={handleSearch}
                         placeholder="search client"
                         className="input-item search-bar"
                         required
                     />
-                    <button className="submit-btn search-btn">add note</button>
+                    {/* <button className="submit-btn search-btn">search</button> */}
                 </div>
             </form>
             
-            <h2 className="notes-page-title">Client Notes</h2>
+            <h2 className="notes-page-title">Cards</h2>
             <div className="notes-container">
-          
+                {cards}
             </div>
         </div>
     )

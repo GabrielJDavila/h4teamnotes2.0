@@ -428,14 +428,16 @@ input, textarea {
 }
 
 .search-bar {
-  width: 70%;
+  width: 100%;
+  max-width: 800px;
 }
 
 .search-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   gap: 3px;
   width: 100%;
+  height: 40px;
 }
 
 .search-btn {
