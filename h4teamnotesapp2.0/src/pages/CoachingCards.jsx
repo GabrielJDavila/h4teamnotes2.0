@@ -4,7 +4,6 @@ import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
 import { getFromCollection, addToCollection, coachingCards } from "../firebase"
 
-
 export default function CoachingCards() {
     const [openModal, setOpenModal] = useState(false)
     const [card, setCard] = useState({
@@ -15,11 +14,10 @@ export default function CoachingCards() {
     const [searchQuery, setSearchQuery] = useState({
         search: ""
     })
-
     const [cardsFromDB, setCardsFromDB] = useState([])
     const [filteredItems, setFilteredItems] = useState([])
     const menuRef = useRef(null)
-
+   
     async function loadData() {
         try {
             const data = await getFromCollection(coachingCards)
@@ -45,7 +43,6 @@ export default function CoachingCards() {
         e.preventDefault()
         addToCollection(card.title, card.date, card.text, coachingCards)
         loadData()
-        window.location.reload()
     }
 
     function handleChange(e) {
@@ -141,7 +138,7 @@ export default function CoachingCards() {
                         className="input-item search-bar"
                         required
                     />
-                    {/* <button className="submit-btn search-btn">search</button> */}
+                    <button className="submit-btn search-btn">add note</button>
                 </div>
             </form>
             
