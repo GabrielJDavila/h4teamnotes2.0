@@ -7,7 +7,7 @@ export default function BackBtn(location) {
             relative="path"
         >
             <i className="fa-solid fa-arrow-left"></i>
-            <p className="back-btn-text">back to dashboard</p>
+            <p className="back-btn-text">back</p>
         </Link>
     )
 }

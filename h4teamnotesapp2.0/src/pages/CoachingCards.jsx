@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
-import { getFromCollection, addToCollection, coachingCards } from "../firebase"
+import { getFromCollection, addToCollection, coachingCards, deleteItem } from "../firebase"
 
 export default function CoachingCards() {
     const [openModal, setOpenModal] = useState(false)
@@ -62,6 +62,12 @@ export default function CoachingCards() {
 
     }
 
+    function handleClick(e) {
+        const itemId = e.target.id
+        deleteItem(coachingCards, itemId)
+        loadData()
+    }
+
     function toggleModal() {
         setOpenModal(prev => !prev)
     }
@@ -82,6 +88,7 @@ export default function CoachingCards() {
             />
         )
     })
+
     // const handleClickOutside = (e) => {
     //     if(menuRef.current && !menuRef.current.contains(e.target)) {
     //         setOpenModal(false)

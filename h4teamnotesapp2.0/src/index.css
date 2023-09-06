@@ -388,14 +388,23 @@ input, textarea {
 }
 
 .add-client-modal {
-  margin: 1rem;
+  position: fixed;
+  height: 500px;
+  width: 80%;
+  max-width: 800px;
+  top: 10rem;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: 1rem auto;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   border: 2px solid rgb(203, 203, 203);
   padding: .5rem 1rem;
-  height: 500px;
   box-shadow: 0 0 15px 1px rgb(203, 203, 203);
+  background: white;
 }
 
 .coaching-cards-title-container {
@@ -445,6 +454,11 @@ input, textarea {
   width: 30%;
 }
 
+/* schedule page styles */
+.canvas {
+  width: 50px;
+}
+
 /* home button styles */
 .home-btn-container {
   margin: 0 auto 1rem auto;
@@ -461,6 +475,7 @@ input, textarea {
 }
 
 .back-btn {
+  width: 50px;
   display: flex;
   align-items: center;
   gap: 10px;
