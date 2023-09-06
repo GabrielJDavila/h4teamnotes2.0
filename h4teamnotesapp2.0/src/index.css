@@ -455,8 +455,15 @@ input, textarea {
 }
 
 /* schedule page styles */
-.canvas {
-  width: 50px;
+.schedule-link {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  color: rgb(24, 127, 187);
+  text-decoration: underline;
+}
+
+.schedule-link:visited {
+  color: rgb(24, 127, 187);
 }
 
 /* home button styles */
