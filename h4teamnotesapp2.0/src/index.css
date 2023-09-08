@@ -455,6 +455,21 @@ input, textarea {
 }
 
 /* schedule page styles */
+.shift-schedule-page {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-input {
+}
+
+.upload-btn {}
+
+.link-container {}
+
 .schedule-link {
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
