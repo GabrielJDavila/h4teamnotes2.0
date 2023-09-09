@@ -14,24 +14,26 @@ export default function ShiftSchedule() {
     const [pdfFile, setPdfFile] = useState(null)
     const [pdfUploadList, setPdfUploadList] = useState(new Set())
     const [currentMonth, setCurrentMonth] = useState("")
-    const [pathNames, setPathNames] = useState({})
+    // const [pathNames, setPathNames] = useState({})
     const uploadedFiles = ref(storage, "files/")
+    console.log(pdfUploadList)
 
+    // uploading file to firebase storage
     function uploadPdf() {
         if(!pdfFile) return
-        const filePath = pdfFile.name
+        // const filePath = pdfFile.name
         const storageName = `${uuidv4()}_${pdfFile.name}`
-        setPathNames(prev => ({
-            ...prev,
-            [filePath]: storageName,
-        }))
+        // setPathNames(prev => ({
+        //     ...prev,
+        //     [filePath]: storageName,
+        // }))
         const pdfRef = ref(storage, `files/${storageName}`)
         uploadBytes(pdfRef, pdfFile).then((res) => {
-            alert("image uploaded")
             window.location.reload()
         })
     }
 
+    // use effect to display current month for schedule
     useEffect(() => {
         const currentDate = new Date()
         const monthNames = [
@@ -40,19 +42,21 @@ export default function ShiftSchedule() {
         const currentMonthName = monthNames[currentDate.getMonth()]
         setCurrentMonth(currentMonthName)
     }, [])
+
+    // use effect for listing items in storage, setting the urls in state
     useEffect(() => {
         listAll(uploadedFiles).then((res) => {
             res.items.forEach(item => {
                 // const fileName = item.name
                 // setPathNames(prev => [...prev, fileName])
                 getDownloadURL(item).then(url => {
-                    
                     setPdfUploadList(prev => new Set([...prev, url]))
                 })
             })
         })
     }, [])
 
+    // variable that holds elements with urls to be rendered
     const pdfLinks = [...pdfUploadList].map(url => {
         return (
             <div key={url} className="link-container">
@@ -69,17 +73,30 @@ export default function ShiftSchedule() {
         )
     })
 
+    // sets file to state ready to be uploaded
     function onFileChange(e) {
         const file = e.target.files[0]
         setPdfFile(file)
     }
 
+    // deletes the files by decoding the url, and removing sections of it to match it to the ref name in storage
     async function handleClick(e) {
         const fileUrl = e.target.id
-        const fileName = fileUrl.split("/").pop()
-        console.log(fileName)
+        const fileName = decodeURIComponent(fileUrl.split("/").pop())
+        const indexOfFiles = fileName.lastIndexOf("files/")
 
-        const fileRef = ref(storage, `files/${fileName}`)
+        if (indexOfFiles === -1) {
+            console.error("invalid file URL:", fileUrl)
+            return
+        }
+
+        const fileNameWithQuery = fileName.substring(6)
+        const indexOfQueryParams = fileNameWithQuery.indexOf("?alt=")
+        const refFileName = indexOfQueryParams === -1
+            ? fileNameWithQuery
+            : fileNameWithQuery.substring(0, indexOfQueryParams)
+
+        const fileRef = ref(storage, `files/${refFileName}`)
         try {
             await deleteObject(fileRef)
             setPdfUploadList(prev => new Set([...prev].filter(url => url !== fileUrl)))
