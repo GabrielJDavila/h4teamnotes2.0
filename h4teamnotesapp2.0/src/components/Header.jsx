@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import { logout } from "../firebase"
+import { logout, requestingPermission } from "../firebase"
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false)
@@ -44,6 +44,7 @@ export default function Header() {
     return (
         <header className="site-header">
             <h4 className="header-team">Team Wheaton</h4>
+            <button onClick={requestingPermission}>Allow notifications</button>
             <i ref={menuRef} className="fa-regular fa-user" onClick={toggleMenu}></i>
             <nav className="side-nav" style={menuStyles}>
                 <Link to="/" onClick={toggleMenu} className="nav-item">Dashboard</Link>

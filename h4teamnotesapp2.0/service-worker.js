@@ -7,6 +7,8 @@ self.addEventListener('install', (event) => {
                 '/index.html',
                 '/src/index.css',
                 '/src/app.jsx',
+                '/src/main.jsx',
+                'src/firebase.jsx'
                 // Add more paths to your assets
             ]);
         })

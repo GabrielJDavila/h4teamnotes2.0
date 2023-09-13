@@ -5,7 +5,7 @@ import './index.css'
 
 if("serviceWorker" in navigator) {
   console.log("yes")
-  navigator.serviceWorker.register("/service-worker.js")
+  navigator.serviceWorker.register("/firebase-messaging-sw.js")
     .then(registration => {
       console.log(registration)
     })

@@ -2,7 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getStorage } from "firebase/storage"
+import { getMessaging, getToken } from "firebase/messaging"
+import "firebase/messaging"
 import { getFirestore, collection, addDoc, doc, deleteDoc, getDocs, query, orderBy, Timestamp } from "firebase/firestore"
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,7 +30,27 @@ export const clientNotes = collection(db, "clientnotes")
 export const workoutNotes = collection(db, "workoutnotes")
 export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
+export const messaging = getMessaging(app)
 
+
+getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
+    if(currentToken) {
+        console.log(currentToken)
+    } else {
+        console.log("no token")
+    }
+}).catch((err) => {
+    console.log("error occurred: ", err)
+})
+
+export function requestingPermission() {
+    console.log("requesting permission...")
+    Notification.requestPermission().then((permission) => {
+        if(permission === "granted") {
+            console.log("approved")
+        }
+    })
+}
 // create new user
 // export async function createUser(email, password) {
 //     try {
