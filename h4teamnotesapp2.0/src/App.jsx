@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import RequestPermissionModal from "./components/RequestPermissionModal"
 import ClientNotes from "./pages/ClientNotes"
 import CoachingCards from "./pages/CoachingCards"
 import GymEvents from "./pages/GymEvents"
@@ -13,13 +12,10 @@ import Dashboard from './pages/Dashboard'
 function App() {
 
   return (
-    <div>
-      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            <Route path="RequestPermissionModal" element={<RequestPermissionModal />} />
             <Route path="clientNotes" element={<ClientNotes />}/>
             <Route path="workoutNotes" element={<WorkoutNotes />}/>
             <Route path="gymEvents" element={<GymEvents />}/>
@@ -29,7 +25,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
   )
 }
 

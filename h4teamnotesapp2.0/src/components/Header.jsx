@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { logout, requestingPermission } from "../firebase"
 
+
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false)
     const menuRef = useRef(null)

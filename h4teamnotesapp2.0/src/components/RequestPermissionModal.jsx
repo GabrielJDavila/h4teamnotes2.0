@@ -1,36 +1,28 @@
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { requestingPermission } from "../firebase"
 
 export default function RequestPermissionModal() {
-
     const [viewModal, setViewModal] = useState(false)
-    const [sliderBtn, setSliderBtn] = useState(false)
+    const [on, setOn] = useState(false)
 
-    function requestingPermission() {
-        console.log("requesting permission...")
-        Notification.requestPermission().then((permission) => {
-            if(permission === "granted") {
-                console.log("approved")
-                setSliderBtn(prev => !prev)
-            }
-        })
+    function toggle() {
+        setOn(prev => !prev)
+        requestingPermission()
     }
 
     return (
         <div className="modal">
-            <h3>Allow notifications</h3>
-            <div className="view">
-                {/* will switch between views */}
-            </div>
+            <h3>Allow this app to send notifications</h3>
+            <img src="/dist/bell.png" className="bell" />
             <div className="toggle-btn">
                 <input
                     type="checkbox"
+                    id="checkbox-input"
                     className="checkbox-toggle"
+                    checked={on}
+                    onChange={toggle}
                 />
-                <label
-                    htmlFor="checkbox-toggle"
-                    className="round-slider-container"
-                >
+                <label htmlFor="checkbox-input" className="round-slider-container">
                     <div>On</div>
                     <div>Off</div>
                     <div className="round-slider"></div>

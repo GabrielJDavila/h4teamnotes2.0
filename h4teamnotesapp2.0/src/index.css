@@ -229,6 +229,67 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+/* modal component */
+
+.modal {
+  font-family: "Montserrat", sans-serif;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 20px 2px rgb(158, 158, 158);
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+}
+
+.modal>h3 {
+  
+}
+
+.bell {
+  width: 100px;
+  height: 90px;
+}
+
+.round-slider-container {
+  width: 62px;
+  height: 30px;
+  background: rgb(24, 127, 187);
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  color: white;
+  padding: 0 2px;
+  user-select: none;
+  box-shadow: inset 0 0 8px 3px rgb(20, 84, 121);
+}
+
+.round-slider {
+  width: 27px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  top: 2px;
+  left: 2px;
+  position: absolute;
+  transition: .2s ease-in-out;
+}
+
+#checkbox-input {
+  visibility: hidden;
+}
+
+#checkbox-input:checked + .round-slider-container .round-slider {
+  transform: translateX(30px);
+}
 
 /* portals to other components styles */
 
