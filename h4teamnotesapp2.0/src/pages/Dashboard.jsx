@@ -4,6 +4,8 @@ export default function Dashboard() {
 
     return (
         <main className="dashboard">
+            
+
             <div className="folder-container">
                 <Link to="clientNotes" className="link-portal">
                     <i className="fa-solid fa-folder"></i>

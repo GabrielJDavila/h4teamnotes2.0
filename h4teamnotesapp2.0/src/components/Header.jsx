@@ -7,7 +7,6 @@ export default function Header() {
     const menuRef = useRef(null)
 
     
-
     function toggleMenu() {
         setOpenMenu(prev => !prev)
     }
