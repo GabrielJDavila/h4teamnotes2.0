@@ -5,8 +5,6 @@ export default function Dashboard() {
 
     return (
         <main className="dashboard">
-            
-            <RequestPermissionModal />
 
             <div className="folder-container">
                 <Link to="clientNotes" className="link-portal">
@@ -60,7 +58,9 @@ export default function Dashboard() {
                         REQUEST TIME OFF
                     </p>
                 </Link>
-            </div>         
+            </div>
+            
+            <RequestPermissionModal />         
         </main>
     )
 }

@@ -30,6 +30,7 @@ export const clientNotes = collection(db, "clientnotes")
 export const workoutNotes = collection(db, "workoutnotes")
 export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
+
 export const messaging = getMessaging(app)
 
 

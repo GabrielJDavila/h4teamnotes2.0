@@ -233,33 +233,37 @@ body {
 
 .modal {
   font-family: "Montserrat", sans-serif;
-  width: 250px;
-  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 10px;
   align-items: center;
-  background: white;
   border-radius: 4px;
-  box-shadow: 0 0 20px 2px rgb(158, 158, 158);
-  position: absolute;
-  z-index: 2;
+  padding: 1rem;
   text-align: center;
 }
 
-.modal>h3 {
-  
+.modal-header {
+  display: flex;
+  margin-bottom: 0;
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 }
 
 .bell {
-  width: 100px;
-  height: 90px;
+  width: 50px;
+  height: 40px;
 }
 
 .round-slider-container {
   width: 62px;
   height: 30px;
-  background: rgb(24, 127, 187);
+  background: rgb(138, 138, 138);
   border-radius: 50px;
   cursor: pointer;
   display: flex;
@@ -268,8 +272,9 @@ body {
   position: relative;
   color: white;
   padding: 0 2px;
+  bottom: 10px;
   user-select: none;
-  box-shadow: inset 0 0 8px 3px rgb(20, 84, 121);
+  box-shadow: inset 0 0 8px 3px rgb(83, 83, 83);
 }
 
 .round-slider {
@@ -289,6 +294,11 @@ body {
 
 #checkbox-input:checked + .round-slider-container .round-slider {
   transform: translateX(30px);
+}
+
+#checkbox-input:checked + .round-slider-container {
+  background: rgb(24, 127, 187);
+  box-shadow: inset 0 0 8px 3px rgb(20, 84, 121);
 }
 
 /* portals to other components styles */

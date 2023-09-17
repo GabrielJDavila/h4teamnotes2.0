@@ -80,7 +80,6 @@ export default function Layout() {
         <div className="site-wrapper">
             <Header />
             <Outlet className="outlet"/>
-            <HomeBtn/>
         </div>
     )
 }
