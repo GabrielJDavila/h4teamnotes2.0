@@ -30,6 +30,7 @@ export const clientNotes = collection(db, "clientnotes")
 export const workoutNotes = collection(db, "workoutnotes")
 export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
+export const users = collection(db, "users")
 
 export const messaging = getMessaging(app)
 
@@ -43,6 +44,18 @@ getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimw
 }).catch((err) => {
     console.log("error occurred: ", err)
 })
+
+// async function addToUserTokens(title, date, text, collectionType) {
+//     try {
+//         const docRef = await addDoc(collectionType, {
+//             title: title,
+//             date: date,
+//             text: text
+//         })
+//     } catch(e) {
+//         console.error("error adding doc: ", e)
+//     }
+// }
 
 export function requestingPermission() {
     console.log("requesting permission...")
