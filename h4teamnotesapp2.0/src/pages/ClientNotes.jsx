@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
-import { getFromCollection, addToCollection, clientNotes, deleteItem } from "../firebase"
+import { getFromCollection, addToCollection, clientNotes, deleteItem, editItem } from "../firebase"
 
 export default function ClientNotes() {
     const [noteData, setNoteData] = useState({
@@ -40,8 +40,13 @@ export default function ClientNotes() {
         }))
     }
 
-    function handleClick(e) {
-        const itemId = e.target.id
+    function handleEdit(e) {
+        const itemId = e.target.dataset.id
+        console.log(itemId)
+    }
+
+    function handleDelete(e) {
+        const itemId = e.target.dataset.id
         deleteItem(clientNotes, itemId)
         loadData()
     }
@@ -54,7 +59,8 @@ export default function ClientNotes() {
                 title={obj.title}
                 date={obj.date}
                 body={obj.text}
-                handleClick={(e) => handleClick(e)}
+                handleEdit={(e) => handleEdit(e)}
+                handleDelete={(e) => handleDelete(e)}
             />
         )
     })

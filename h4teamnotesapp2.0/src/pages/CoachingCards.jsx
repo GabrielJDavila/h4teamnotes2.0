@@ -145,7 +145,7 @@ export default function CoachingCards() {
                         className="input-item search-bar"
                         required
                     />
-                    <button className="submit-btn search-btn">add note</button>
+                    <button className="submit-btn search-btn">search</button>
                 </div>
             </form>
             

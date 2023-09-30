@@ -1,15 +1,13 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getStorage } from "firebase/storage"
 import { getMessaging, getToken } from "firebase/messaging"
 import "firebase/messaging"
-import { getFirestore, collection, addDoc, doc, deleteDoc, getDocs, query, orderBy, Timestamp } from "firebase/firestore"
+import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, getDocs, query, orderBy, Timestamp } from "firebase/firestore"
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+// my web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCUSMQjhU9byPCscrsLoq4IXv55H-SASZk",
   authDomain: "h4teamnotesapp.firebaseapp.com",
@@ -31,50 +29,27 @@ export const workoutNotes = collection(db, "workoutnotes")
 export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
 export const users = collection(db, "users")
-
 export const messaging = getMessaging(app)
 
-
-getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
-    if(currentToken) {
-        console.log(currentToken)
-    } else {
-        console.log("no token")
-    }
-}).catch((err) => {
-    console.log("error occurred: ", err)
-})
-
-// async function addToUserTokens(title, date, text, collectionType) {
-//     try {
-//         const docRef = await addDoc(collectionType, {
-//             title: title,
-//             date: date,
-//             text: text
-//         })
-//     } catch(e) {
-//         console.error("error adding doc: ", e)
-//     }
-// }
-
+// requesting to send notifications
 export function requestingPermission() {
     console.log("requesting permission...")
     Notification.requestPermission().then((permission) => {
         if(permission === "granted") {
-            console.log("approved")
+            // retrieving token
+            getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
+                if(currentToken) {
+                    console.log(currentToken)
+                } else {
+                    console.log("no token")
+                }
+            }).catch((err) => {
+                console.log("error occurred: ", err)
+            })
         }
     })
 }
-// create new user
-// export async function createUser(email, password) {
-//     try {
-//         const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-//         console.log(userCredential.user)
-//     }
-//     catch(e) {
-//         console.log("error creating account: ", e)
-//     }
-// }
+
 
 // sign in app
 export async function signIn(email, password) {
@@ -89,6 +64,15 @@ export async function signIn(email, password) {
 // sign out app
 export const logout = async () => {
     await signOut(auth)
+}
+
+// add user info to firestore
+export async function addUser(users, userData) {
+    try {
+        const docRef = await addDoc(users, userData)
+    } catch(e) {
+        console.error("error adding user: ", e)
+    }
 }
 
 // add to collection in firestore
@@ -113,6 +97,18 @@ export async function getFromCollection(collectionType) {
         id: doc.id
     }))
     return collections
+}
+
+// edit item fron collection in firestore
+export async function editItem(collectionType, itemId, newUpdate) {
+    try {
+        const itemRef = doc(collectionType, itemId)
+        await updateDoc(itemRef, {
+            note: newUpdate
+        })
+    } catch(e) {
+        console.log(e)
+    }
 }
 
 // delete item from collection in firestore

@@ -1,19 +1,22 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, createContext} from "react"
 import { Outlet, Link } from "react-router-dom"
-import { signIn, auth } from "../firebase"
+import { signIn, auth, addUser, users } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 
 export default function Login() {
     const [loggedIn, setLoggedIn] = useState(false)
+    const [user, setUser] = useState(null)
     const [loginInfo, setLoginInfo] = useState({
         email: "",
         password: ""
     })
+    console.log(user)
     useEffect(() => {
         const monitorAuthState = async () => {
             onAuthStateChanged(auth, user => {
                 if(user) {
                     setLoggedIn(!!user)
+                    addUser(users, user)
                 }
             })
         }

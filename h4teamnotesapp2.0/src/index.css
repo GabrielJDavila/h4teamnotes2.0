@@ -303,7 +303,7 @@ body {
 
 /* portals to other components styles */
 
-.dashboard {
+.folders-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -319,6 +319,21 @@ body {
   color: rgb(37, 175, 255);
   font-size: 150px;
   position: relative;
+}
+
+.new-link-portal {
+  border-bottom: 2px solid lightgray;
+}
+
+.new-link-text {
+  color: black;
+  margin: 0;
+  width: 80%;
+}
+
+.section-description {
+  color: black;
+  margin: 0;
 }
 
 .link-portal {
@@ -607,4 +622,10 @@ a {
 a:visited {
   text-decoration: none;
   color: white;
+}
+
+@media screen and (min-width: 900px) {
+  .fa-folder {
+    font-size: 200px;
+  }
 }

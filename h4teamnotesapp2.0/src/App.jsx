@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import ClientNotes from "./pages/ClientNotes"
@@ -8,6 +8,8 @@ import ShiftSchedule from "./pages/ShiftSchedule"
 import TimeSheet from "./pages/TimeSheet"
 import WorkoutNotes from "./pages/WorkoutNotes"
 import Dashboard from './pages/Dashboard'
+
+const userContext = createContext()
 
 function App() {
 

@@ -13,7 +13,7 @@ export default function RequestPermissionModal() {
         <div className="modal">
             <h3 className="modal-header">Allow this app to send notifications</h3>
             <div className="notification-container">
-                <img src="/dist/bell.png" className="bell" />
+                {/* <img src="/dist/bell.png" className="bell" /> */}
                 <div className="toggle-btn">
                     <input
                         type="checkbox"
