@@ -4,7 +4,7 @@ import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getStorage } from "firebase/storage"
 import { getMessaging, getToken } from "firebase/messaging"
 import "firebase/messaging"
-import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, getDocs, query, orderBy, Timestamp } from "firebase/firestore"
+import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, getDocs, getDoc, query, orderBy, Timestamp } from "firebase/firestore"
 
 
 // my web app's Firebase configuration
@@ -99,12 +99,22 @@ export async function getFromCollection(collectionType) {
     return collections
 }
 
+// get single doc from firestore
+export async function retrieveDoc(collectionType, itemId) {
+    const docRef = doc(collectionType, itemId)
+    const docSnap = await getDoc(docRef)
+    if(docSnap.exists()) {
+         console.log(docSnap.data())
+    }
+    return docSnap
+}
+
 // edit item fron collection in firestore
 export async function editItem(collectionType, itemId, newUpdate) {
     try {
         const itemRef = doc(collectionType, itemId)
         await updateDoc(itemRef, {
-            note: newUpdate
+            text: newUpdate
         })
     } catch(e) {
         console.log(e)

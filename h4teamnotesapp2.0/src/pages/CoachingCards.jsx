@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
 import { Link } from "react-router-dom"
 import { getFromCollection, addToCollection, coachingCards, deleteItem } from "../firebase"
+import { ToggleContext } from "../App"
 
 export default function CoachingCards() {
-    const [openModal, setOpenModal] = useState(false)
+    const {toggle, setToggle} = useContext(ToggleContext)
     const [card, setCard] = useState({
         title: "",
         date: "",
@@ -69,11 +70,11 @@ export default function CoachingCards() {
     }
 
     function toggleModal() {
-        setOpenModal(prev => !prev)
+        setToggle(prev => !prev)
     }
 
     const modalDisplay = {
-        display: openModal ? "flex" : "none"
+        display: toggle ? "flex" : "none"
     }
 
     const cards = filteredItems.map(obj => {

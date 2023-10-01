@@ -9,11 +9,12 @@ import TimeSheet from "./pages/TimeSheet"
 import WorkoutNotes from "./pages/WorkoutNotes"
 import Dashboard from './pages/Dashboard'
 
-const userContext = createContext()
+export const ToggleContext = createContext()
 
 function App() {
-
+  const [toggle, setToggle] = useState(false)
   return (
+    <ToggleContext.Provider value={{ toggle, setToggle }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -27,6 +28,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+    </ToggleContext.Provider>
   )
 }
 

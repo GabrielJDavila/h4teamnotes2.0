@@ -13,7 +13,7 @@ export default function Note(props) {
                 <h3 className="note-title">{props.title}</h3>
                 <p className="note-date">{props.date}</p>
                 <div className="edit-delete-container">
-                    <i data-id={props.id} className="fa-solid fa-pen-to-square" onClick={props.handleEdit}></i>
+                    <i data-id={props.id} className="fa-solid fa-pen-to-square" onClick={props.handleEditClick}></i>
                     <i data-id={props.id} onClick={props.handleDelete} className="fa-solid fa-trash"></i>
                 </div>
             </div>
