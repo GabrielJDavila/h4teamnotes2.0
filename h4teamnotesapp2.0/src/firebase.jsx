@@ -4,7 +4,7 @@ import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { getStorage } from "firebase/storage"
 import { getMessaging, getToken } from "firebase/messaging"
 import "firebase/messaging"
-import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, getDocs, getDoc, query, orderBy, Timestamp } from "firebase/firestore"
+import { getFirestore, collection, addDoc, doc, deleteDoc, setDoc, updateDoc, getDocs, getDoc, query, orderBy, Timestamp } from "firebase/firestore"
 
 
 // my web app's Firebase configuration
@@ -30,6 +30,19 @@ export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
 export const users = collection(db, "users")
 export const messaging = getMessaging(app)
+
+async function addToken(collectionType, token) {
+    try {
+        const itemRef = doc(collectionType, itemId)
+        await setDoc(itemRef, {
+            title: newTitle,
+            date: newDate,
+            text: newText
+        })
+    } catch(e) {
+        console.log(e)
+    }
+}
 
 // requesting to send notifications
 export function requestingPermission() {
@@ -67,9 +80,12 @@ export const logout = async () => {
 }
 
 // add user info to firestore
-export async function addUser(users, userData) {
+export async function addUser(collection, userData) {
     try {
-        const docRef = await addDoc(users, userData)
+        console.log(userData)
+        const docRef = await addDoc(collection, {
+            email: userData
+        })
     } catch(e) {
         console.error("error adding user: ", e)
     }
@@ -103,18 +119,20 @@ export async function getFromCollection(collectionType) {
 export async function retrieveDoc(collectionType, itemId) {
     const docRef = doc(collectionType, itemId)
     const docSnap = await getDoc(docRef)
-    if(docSnap.exists()) {
-         console.log(docSnap.data())
-    }
+    // if(docSnap.exists()) {
+    //      console.log(docSnap.data())
+    // }
     return docSnap
 }
 
 // edit item fron collection in firestore
-export async function editItem(collectionType, itemId, newUpdate) {
+export async function editItem(collectionType, itemId, newTitle, newDate, newText) {
     try {
         const itemRef = doc(collectionType, itemId)
-        await updateDoc(itemRef, {
-            text: newUpdate
+        await setDoc(itemRef, {
+            title: newTitle,
+            date: newDate,
+            text: newText
         })
     } catch(e) {
         console.log(e)

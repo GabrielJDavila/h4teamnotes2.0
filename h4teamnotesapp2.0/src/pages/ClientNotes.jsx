@@ -1,32 +1,31 @@
 import { useState, useEffect, useContext } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
-import { Link } from "react-router-dom"
 import { getFromCollection, addToCollection, clientNotes, deleteItem, retrieveDoc, editItem } from "../firebase"
 import { ToggleContext } from "../App"
-import { doc } from "firebase/firestore"
 
 export default function ClientNotes() {
+    // state for initial note data returned from firestore
     const [noteData, setNoteData] = useState({
         title: "",
         date: "",
         text: ""
     })
-    const [updatedNoteData, setUpadtedNoteData] = useState({
-        title: "",
-        date: "",
-        text: ""
-    })
+    
+    // state for current note selected to be edited by user
     const [currentNote, setCurrentNote] = useState({
         title: "",
         date: "",
         text: ""
     })
+    // state for data sorted and set from noteData, ready to be rendered
     const [notesFromDB, setNotesFromDB] = useState([])
+    // initial value of itemId for currentNote
     const [currentItemId, setCurrentItemId] = useState(null)
+    // state context for toggling of modal
     const {toggle, setToggle} = useContext(ToggleContext)
 
-    console.log(currentNote)
+    // function to get data from firestore, sort, and set to state ready to be rendered
     async function loadData() {
         try {
             const data = await getFromCollection(clientNotes)
@@ -41,19 +40,29 @@ export default function ClientNotes() {
         loadData()
     }, [])
 
+    // function to submit form and add note to firestore
     function handleSubmit(e) {
         e.preventDefault()
         addToCollection(noteData.title, noteData.date, noteData.text, clientNotes)
         loadData()
     }
 
-    // function handleChange(e) {
-    //     const {name, value} = e.target
-    //     setNoteData(prev => ({
-    //         ...prev,
-    //         [name]: value
-    //     }))
-    // }
+    // function to submit form and add edited note to firestore
+    function handleEditSubmit(e) {
+        e.preventDefault()
+        editItem(clientNotes, currentItemId, currentNote.title, currentNote.date, currentNote.text)
+        loadData()
+        toggleModal()
+    }
+
+    // handles deletion of note, re-renders data to update display
+    function handleDelete(e) {
+        const itemId = e.target.dataset.id
+        deleteItem(clientNotes, itemId)
+        loadData()
+    }
+
+    // handles change for inputs of adding new notes/editing notes
     function handleChange(name, value, stateSetter) {
         stateSetter(prev => ({
             ...prev,
@@ -61,22 +70,15 @@ export default function ClientNotes() {
         }))
     }
 
-    // function handleUpdate(e) {
-    //     const {name, value} = e.target
-    //     setUpadtedNoteData(prev => ({
-    //         ...prev,
-    //         [name]: value
-    //     }))
-    // }
-
+    // handles inital function of edit button click, calls multiple functions
     function handleEditClick(e) {
         const itemId = e.target.dataset.id
-        // retrieveDoc(clientNotes, itemId)
         loadSingleDoc(itemId)
         setCurrentItemId(itemId)
         toggleModal()
     }
 
+    // retrieves single document from collection, updates currentNote with data
     async function loadSingleDoc(currentItemId) {
         try {
             const docSnap = await retrieveDoc(clientNotes, currentItemId)
@@ -91,23 +93,19 @@ export default function ClientNotes() {
             console.log(e)
         }
     }
+
     useEffect(() => {
         if(currentItemId) {
             loadSingleDoc(currentItemId)
         }
     }, [currentItemId])
 
-    function handleDelete(e) {
-        const itemId = e.target.dataset.id
-        deleteItem(clientNotes, itemId)
-        loadData()
-    }
-
+    // toggles state to display modal to edit note
     function toggleModal() {
         setToggle(prev => !prev)
-        console.log(currentNote)
     }
 
+    // maps through intial notes returned from firestore, returning a Note component for each item
     const notes = notesFromDB.map(obj => {
         return (
             <Note
@@ -162,12 +160,12 @@ export default function ClientNotes() {
 
                 {
                 toggle && currentNote ?
-                <form className="update-modal">
+                <form onSubmit={handleEditSubmit} className="update-modal">
                     <i className="fa-solid fa-x" onClick={toggleModal}></i>
                     <div className="top-input-div">
                         <input
                             name="title"
-                            onChange={e => handleChange(e.target.name, e.target.value, setUpdatedData)}
+                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
                             type="text"
                             placeholder="note title"
                             value={currentNote.title}
@@ -176,7 +174,7 @@ export default function ClientNotes() {
                         />
                         <input
                             name="date"
-                            onChange={e => handleChange(e.target.name, e.target.value, setUpdatedData)}
+                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
                             type="date"
                             placeholder="date"
                             value={currentNote.date}
@@ -186,7 +184,7 @@ export default function ClientNotes() {
                     </div>
                     <textarea
                         name="text"
-                        onChange={e => handleChange(e.target.name, e.target.value, setUpdatedData)}
+                        onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
                         placeholder="write note here"
                         value={currentNote.text}
                         required

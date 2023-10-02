@@ -1,9 +1,10 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, createContext} from "react"
 import { Outlet, Link } from "react-router-dom"
-import { signIn, auth } from "../firebase"
+import { signIn, auth, addUser, users } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Header from "./Header"
 import HomeBtn from "./HomeBtn"
+// export const userContext = userContext()
 
 export default function Layout() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -25,6 +26,7 @@ export default function Layout() {
     function handleSignIn(e) {
         e.preventDefault()
         signIn(loginInfo.email, loginInfo.password)
+        addUser(users, loginInfo.email)
     }
 
     function handleChange(e) {

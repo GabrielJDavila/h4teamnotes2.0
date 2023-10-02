@@ -1,26 +1,28 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { requestingPermission } from "../firebase"
+import { ToggleContext } from "../App"
 
 export default function RequestPermissionModal() {
-    const [on, setOn] = useState(false)
+    const {toggle, setToggle} = useContext(ToggleContext)
 
-    function toggle() {
-        setOn(prev => !prev)
-        requestingPermission()
+    function handleToggle() {
+        setToggle(prev => !prev)
+        if(!toggle) {
+            requestingPermission()
+        }
     }
 
     return (
         <div className="modal">
             <h3 className="modal-header">Allow this app to send notifications</h3>
             <div className="notification-container">
-                {/* <img src="/dist/bell.png" className="bell" /> */}
                 <div className="toggle-btn">
                     <input
                         type="checkbox"
                         id="checkbox-input"
                         className="checkbox-toggle"
-                        checked={on}
-                        onChange={toggle}
+                        checked={toggle}
+                        onChange={handleToggle}
                     />
                     <label htmlFor="checkbox-input" className="round-slider-container">
                         <div>On</div>

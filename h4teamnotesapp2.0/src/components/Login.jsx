@@ -11,12 +11,12 @@ export default function Login() {
         password: ""
     })
     console.log(user)
+
     useEffect(() => {
         const monitorAuthState = async () => {
             onAuthStateChanged(auth, user => {
                 if(user) {
                     setLoggedIn(!!user)
-                    addUser(users, user)
                 }
             })
         }
@@ -26,6 +26,7 @@ export default function Login() {
     function handleSignIn(e) {
         e.preventDefault()
         signIn(loginInfo.email, loginInfo.password)
+        addUser(users, loginInfo.email)
     }
 
     function handleChange(e) {

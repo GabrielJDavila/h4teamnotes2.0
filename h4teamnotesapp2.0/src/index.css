@@ -414,6 +414,7 @@ input, textarea {
 .update-modal {
   position: fixed;
   z-index: 2;
+  top: 300px;
   right: 0;
   left: 0;
   display: flex;
@@ -425,7 +426,7 @@ input, textarea {
   max-width: 600px;
   height: 300px;
   background: white;
-  box-shadow: 0 0 20px 1px rgb(158, 158, 158);
+  box-shadow: 0 0 10px 1px rgb(158, 158, 158);
   padding: 2rem;
 }
 
