@@ -1,9 +1,8 @@
 import { useState, useEffect, useContext } from "react"
 import { requestingPermission } from "../firebase"
-import { ToggleContext } from "../App"
 
 export default function RequestPermissionModal() {
-    const {toggle, setToggle} = useContext(ToggleContext)
+    const [toggle, setToggle] = useState(false)
 
     function handleToggle() {
         setToggle(prev => !prev)

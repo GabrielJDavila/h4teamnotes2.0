@@ -14,12 +14,12 @@ export default function Dashboard() {
                     <Link to="clientNotes" className="link-portal">
                         <i className="fa-solid fa-folder"></i>
                         <p className="link-text">
-                            CLIENT NOTES
+                            Notes
                         </p>
                     </Link>
                 </div>
 
-                <div className="folder-container">
+                {/* <div className="folder-container">
                     <Link to="workoutNotes" className="link-portal">
                         <i className="fa-solid fa-folder"></i>
                         <p className="link-text">
@@ -35,7 +35,7 @@ export default function Dashboard() {
                             EVENTS
                         </p>
                     </Link>
-                </div> 
+                </div>  */}
 
                 <div className="folder-container">
                     <Link to="coachingCards" className="link-portal">

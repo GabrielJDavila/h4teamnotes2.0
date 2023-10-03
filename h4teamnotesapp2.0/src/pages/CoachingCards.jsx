@@ -1,13 +1,20 @@
-import { useState, useEffect, useRef, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
-import { Link } from "react-router-dom"
-import { getFromCollection, addToCollection, coachingCards, deleteItem } from "../firebase"
-import { ToggleContext } from "../App"
+import { getFromCollection, addToCollection, coachingCards, deleteItem, retrieveDoc, editItem } from "../firebase"
+import { ToggleContext2 } from "../App"
 
 export default function CoachingCards() {
-    const {toggle, setToggle} = useContext(ToggleContext)
+    // all state variables initiated
+    const {toggle2, setToggle2} = useContext(ToggleContext2)
+    const [editToggle, setEditToggle] = useState(false)
     const [card, setCard] = useState({
+        title: "",
+        date: "",
+        text: ""
+    })
+    // state for current note selected to be edited by user
+    const [currentNote, setCurrentNote] = useState({
         title: "",
         date: "",
         text: ""
@@ -17,13 +24,14 @@ export default function CoachingCards() {
     })
     const [cardsFromDB, setCardsFromDB] = useState([])
     const [filteredItems, setFilteredItems] = useState([])
-    const menuRef = useRef(null)
+    const [currentItemId, setCurrentItemId] = useState(null)
    
+    // intial data loaded from firestore
     async function loadData() {
         try {
             const data = await getFromCollection(coachingCards)
-            // const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
-            setCardsFromDB(data)
+            const sortedData = data.slice().sort((a, b) => a.title.localeCompare(b.title))
+            setCardsFromDB(sortedData)
         } catch(e) {
             console.log("error fetching data: ", e)
         }
@@ -33,6 +41,7 @@ export default function CoachingCards() {
         loadData()
     }, [])
 
+    // filter items as user types to match search query
     useEffect(() => {
         const filteredCards = cardsFromDB.filter(card => {
             return card.title.toLowerCase().startsWith(searchQuery.search.toLowerCase())
@@ -40,20 +49,63 @@ export default function CoachingCards() {
         setFilteredItems(filteredCards)
     }, [searchQuery, cardsFromDB])
 
+    // retrieves single doc from firestore
+    async function loadSingleDoc(currentItemId) {
+        try {
+            const docSnap = await retrieveDoc(coachingCards, currentItemId)
+            const doc = docSnap.data()
+            setCurrentNote(prev => ({
+                ...prev,
+                title: doc.title,
+                date: doc.date,
+                text: doc.text
+            }))
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        if(currentItemId) {
+            loadSingleDoc(currentItemId)
+        }
+    }, [currentItemId])
+
+    // handles client data added to firestore
     function handleSubmit(e) {
         e.preventDefault()
         addToCollection(card.title, card.date, card.text, coachingCards)
         loadData()
+        clearCardState()
+        addToggleModal()
     }
 
-    function handleChange(e) {
-        const {name, value} = e.target
-        setCard(prev => ({
+    // function to submit form and add edited card to firestore
+    function handleEditSubmit(e) {
+        e.preventDefault()
+        editItem(coachingCards, currentItemId, currentNote.title, currentNote.date, currentNote.text)
+        loadData()
+        editToggleModal()
+    }
+
+    // clears form data after submitting
+    function clearCardState() {
+        setCard({
+            title: "",
+            date: "",
+            text: ""
+        })
+    }
+
+    // handles change for inputs of adding new notes/editing notes
+    function handleChange(name, value, stateSetter) {
+        stateSetter(prev => ({
             ...prev,
             [name]: value
         }))
     }
 
+    // handles change on search query
     function handleSearch(e) {
         const {name, value} = e.target
         setSearchQuery(prev => ({
@@ -63,20 +115,37 @@ export default function CoachingCards() {
 
     }
 
-    function handleClick(e) {
-        const itemId = e.target.id
+    // handle edit button click
+    function handleEditClick(e) {
+        const itemId = e.target.dataset.id
+        loadSingleDoc(itemId)
+        setCurrentItemId(itemId)
+        editToggleModal()
+    }
+
+    // handles click to trigger deletion of item
+    function handleDelete(e) {
+        const itemId = e.target.dataset.id
         deleteItem(coachingCards, itemId)
         loadData()
     }
 
-    function toggleModal() {
-        setToggle(prev => !prev)
+    // toggles add client modal state
+    function addToggleModal() {
+        setToggle2(prev => !prev)
     }
 
+    // toggles edit client modal state
+    function editToggleModal() {
+        setEditToggle(prev => !prev)
+    }
+
+    // if state is true, displays add client modal
     const modalDisplay = {
-        display: toggle ? "flex" : "none"
+        display: toggle2 ? "flex" : "none"
     }
 
+    // Maps through filtered data to render Note component for each object
     const cards = filteredItems.map(obj => {
         return (
             <Note
@@ -85,31 +154,26 @@ export default function CoachingCards() {
                 title={obj.title}
                 date={obj.date}
                 body={obj.text}
-                handleClick={(e) => handleClick(e)}
+                handleEditClick={(e) => handleEditClick(e)}
+                handleDelete={(e) => handleDelete(e)}
             />
         )
     })
 
-    // const handleClickOutside = (e) => {
-    //     if(menuRef.current && !menuRef.current.contains(e.target)) {
-    //         setOpenModal(false)
-    //     }
-    // }
-    // document.addEventListener("click", handleClickOutside)
-
     return (
         <div className="coaching-cards-page-container">
             <BackBtn />
-            <button onClick={toggleModal} className="add-new-client">Add new client</button>
+            <button onClick={addToggleModal} className="add-new-client">Add new client</button>
+
             <form onSubmit={handleSubmit} className="add-client-modal" style={modalDisplay}>
                 <div className="coaching-cards-title-container">
                     <h3 className="modal-title">Add new client</h3>
-                    <i className="fa-solid fa-x" onClick={toggleModal}></i>
+                    <i className="fa-solid fa-x" onClick={addToggleModal}></i>
                 </div>
                 <div className="top-input-div">
                     <input
                         name="title"
-                        onChange={handleChange}
+                        onChange={e => handleChange(e.target.name, e.target.value, setCard)}
                         type="text"
                         value={card.title}
                         placeholder="client name"
@@ -118,7 +182,7 @@ export default function CoachingCards() {
                     <input
                         name="date"
                         type="date"
-                        onChange={handleChange}
+                        onChange={e => handleChange(e.target.name, e.target.value, setCard)}
                         value={card.date}
                         placeholder="birthdate"
                         className="input-item birthdate"
@@ -127,13 +191,13 @@ export default function CoachingCards() {
                 </div>
                 <textarea
                     name="text"
-                    onChange={handleChange}
+                    onChange={e => handleChange(e.target.name, e.target.value, setCard)}
                     value={card.text}
                     placeholder="client notes"
                     className="add-new-client-text"
                     required
                 ></textarea>
-                <button className="modal-submit">add client</button>
+                <button className="add-modal-submit">add client</button>
             </form>
             <form className="search-clients">
                 <h3 className="search-title">Search a client</h3>
@@ -152,6 +216,44 @@ export default function CoachingCards() {
             
             <h2 className="notes-page-title">Cards</h2>
             <div className="notes-container">
+            {
+                editToggle && currentNote ?
+                <form onSubmit={handleEditSubmit} className="update-modal">
+                    <div className="update-title-container">
+                        <h3>Edit Card</h3>
+                        <i className="fa-solid fa-x" onClick={editToggleModal}></i>
+                    </div>
+                    <div className="top-input-div">
+                        <input
+                            name="title"
+                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                            type="text"
+                            placeholder="card name"
+                            value={currentNote.title}
+                            className="input-item"
+                            required
+                        />
+                        <input
+                            name="date"
+                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                            type="date"
+                            placeholder="date"
+                            value={currentNote.date}
+                            className="input-item"
+                            required
+                        />
+                    </div>
+                    <textarea
+                        name="text"
+                        onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                        placeholder="write text here"
+                        value={currentNote.text}
+                        required
+                        className="update-textarea"
+                    ></textarea>
+                    <button className="submit-btn">update note</button>
+                </form> : ""
+                }
                 {cards}
             </div>
         </div>

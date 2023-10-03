@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react"
 import Note from "../components/Note"
 import BackBtn from "../components/BackBtn"
 import { getFromCollection, addToCollection, clientNotes, deleteItem, retrieveDoc, editItem } from "../firebase"
-import { ToggleContext } from "../App"
+import { ToggleContext1 } from "../App"
 
 export default function ClientNotes() {
     // state for initial note data returned from firestore
@@ -23,7 +23,7 @@ export default function ClientNotes() {
     // initial value of itemId for currentNote
     const [currentItemId, setCurrentItemId] = useState(null)
     // state context for toggling of modal
-    const {toggle, setToggle} = useContext(ToggleContext)
+    const {toggle1, setToggle1} = useContext(ToggleContext1)
 
     // function to get data from firestore, sort, and set to state ready to be rendered
     async function loadData() {
@@ -44,7 +44,17 @@ export default function ClientNotes() {
     function handleSubmit(e) {
         e.preventDefault()
         addToCollection(noteData.title, noteData.date, noteData.text, clientNotes)
+        clearNoteState()
         loadData()
+    }
+
+    // clears form data after submitting
+    function clearNoteState() {
+        setNoteData({
+            title: "",
+            date: "",
+            text: ""
+        })
     }
 
     // function to submit form and add edited note to firestore
@@ -102,7 +112,7 @@ export default function ClientNotes() {
 
     // toggles state to display modal to edit note
     function toggleModal() {
-        setToggle(prev => !prev)
+        setToggle1(prev => !prev)
     }
 
     // maps through intial notes returned from firestore, returning a Note component for each item
@@ -121,7 +131,7 @@ export default function ClientNotes() {
     })
 
     return (
-        <div className="notes-page-container">
+        <div className="notes-page-container modal-overlay">
             <BackBtn />
             <form onSubmit={handleSubmit} className="add-new-note">
                 <h2>Add New Note</h2>
@@ -159,9 +169,12 @@ export default function ClientNotes() {
             <div className="notes-container">
 
                 {
-                toggle && currentNote ?
+                toggle1 && currentNote ?
                 <form onSubmit={handleEditSubmit} className="update-modal">
-                    <i className="fa-solid fa-x" onClick={toggleModal}></i>
+                    <div className="update-title-container">
+                        <h3>Edit Note</h3>
+                        <i className="fa-solid fa-x" onClick={toggleModal}></i>
+                    </div>
                     <div className="top-input-div">
                         <input
                             name="title"
@@ -188,6 +201,7 @@ export default function ClientNotes() {
                         placeholder="write note here"
                         value={currentNote.text}
                         required
+                        className="update-textarea"
                     ></textarea>
                     <button className="submit-btn">update note</button>
                 </form> : ""
