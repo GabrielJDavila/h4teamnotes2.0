@@ -189,6 +189,25 @@ export default function CoachingCards() {
                         required
                     />
                 </div>
+                {/* <div className="middle-input-div">
+                    <input
+                        name="level"
+                        onChange={e => handleChange(e.target.name, e.target.value, setCard)}
+                        type="text"
+                        value={card.level}
+                        placeholder="client level"
+                        className="modal-input"
+                    />
+                    <input
+                        name="contraindications"
+                        type="text"
+                        onChange={e => handleChange(e.target.name, e.target.value, setCard)}
+                        value={card.contraindications}
+                        placeholder="contraindications"
+                        className="input-item"
+                        required
+                    />
+                </div> */}
                 <textarea
                     name="text"
                     onChange={e => handleChange(e.target.name, e.target.value, setCard)}
@@ -199,6 +218,7 @@ export default function CoachingCards() {
                 ></textarea>
                 <button className="add-modal-submit">add client</button>
             </form>
+
             <form className="search-clients">
                 <h3 className="search-title">Search a client</h3>
                 <div className="search-container">

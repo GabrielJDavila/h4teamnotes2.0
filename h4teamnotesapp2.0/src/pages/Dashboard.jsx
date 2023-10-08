@@ -5,16 +5,20 @@ export default function Dashboard() {
 
     return (
         <main className="dashboard">
-            <Link to="clientNotes" className="new-link-portal">
-                <h3 className="new-link-text">CLIENT NOTES</h3>
-                <p className="section-description">Add, edit, and review general notes</p>
+            {/* <Link to="clientNotes" className="new-link-portal">
+                <h3 className="new-link-text">Notes</h3>
+                <p className="section-description">Add, edit, and review notes about the gym, events, workout, etc.</p>
             </Link>
+            <Link to="coachingCards" className="new-link-portal">
+                <h3 className="new-link-text">Coaching Cards</h3>
+                <p className="section-description">Individual notes for clients for easier coaching.</p>
+            </Link> */}
             <div className="folders-container">
                 <div className="folder-container">
                     <Link to="clientNotes" className="link-portal">
                         <i className="fa-solid fa-folder"></i>
                         <p className="link-text">
-                            Notes
+                            NOTES
                         </p>
                     </Link>
                 </div>
