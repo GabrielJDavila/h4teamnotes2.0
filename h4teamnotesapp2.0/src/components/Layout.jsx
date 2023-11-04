@@ -3,6 +3,7 @@ import { Outlet, Link } from "react-router-dom"
 import { signIn, auth, addUser, users } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Header from "./Header"
+import SideNav from "./SideNav"
 import HomeBtn from "./HomeBtn"
 // export const userContext = userContext()
 
@@ -12,6 +13,20 @@ export default function Layout() {
         email: "",
         password: ""
     })
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const isDesktop = windowWidth > 800
+
+    useEffect(() => {
+        function watchWidth() {
+            setWindowWidth(window.innerWidth)
+        }
+        window.addEventListener("resize", watchWidth)
+        return function() {
+            window.removeEventListener("resize", watchWidth)
+        }
+
+    }, [])
+
     useEffect(() => {
         const monitorAuthState = async () => {
             onAuthStateChanged(auth, user => {
@@ -81,6 +96,7 @@ export default function Layout() {
     return (
         <div className="site-wrapper">
             <Header />
+            {isDesktop && <SideNav/>}
             <Outlet className="outlet"/>
         </div>
     )

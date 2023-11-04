@@ -118,7 +118,7 @@ body {
   margin-left: auto;
 }
 
-.side-nav {
+.mobile-nav {
   display: flex;
   flex-direction: column;
   background: rgb(101, 101, 101);
@@ -568,7 +568,7 @@ input, textarea {
   border: none;
   background: none;
   font-size: 1.5rem;
-  margin: 0 10px 20px;
+  margin: 0 0 20px;
   text-align: center;
   color: rgb(37, 175, 255);
   transition: all 0.3s ease-in-out;
@@ -602,8 +602,77 @@ a:visited {
   color: white;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 800px) {
+
+  .site-header {
+    position: fixed;
+    width: 100vw;
+  }
+
+  .side-nav-container {
+    display: flex;
+    flex-direction: column;
+    background: rgb(101, 101, 101);
+    position: fixed;
+    text-align: left;
+    width: 27%;
+    height: 100vh;
+    top: 5.4rem;
+    left: 0;
+    padding: 1rem 0 0;
+    z-index: 2;
+    gap: 20px;
+    overflow-y: hidden;
+    transition: .2s all ease;
+  }
+
+  .fa-user {
+    margin: 0 auto 0 1rem;
+  }
+
+  .side-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .dashboard-side-link {
+    border-top: 2px solid rgb(138, 138, 138);
+  }
+  .nav-item {
+    margin: 0;
+    padding: 2rem 1rem;
+    width: 100%;
+    border-bottom: 2px solid rgb(138, 138, 138);
+  }
+
+  .logout-btn {
+    margin: 0 auto 0 0;
+    padding: 2rem 1rem;
+  }
+
+  .coaching-cards-page-container,
+  .notes-page-container,
+  .folders-container,
+  .shift-schedule-page,
+  .timesheet-page {
+    margin: 8rem 1rem 0 auto;
+    width: 70%;
+
+  }
+
   .fa-folder {
     font-size: 200px;
   }
+
+  /* .add-new-note {
+    display: flex;
+    text-align: left;
+    justify-content: left;
+  }
+
+  .submit-btn {
+    margin: 0 auto 0;
+  } */
 }
