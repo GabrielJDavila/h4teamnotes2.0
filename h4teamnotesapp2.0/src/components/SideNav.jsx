@@ -15,10 +15,9 @@ export default function SideNav(props) {
             <i className="fa-regular fa-user"></i>
             <nav className="side-nav">
                 <Link to="/" className="nav-item dashboard-side-link">Dashboard</Link>
-                <Link to="clientNotes" className="nav-item">Client Notes</Link>
+                <Link to="WheatonNotes" className="nav-item">Wheaton Notes</Link>
+                <Link to="GenevaNotes" className="nav-item">Geneva Notes</Link>
                 <Link to="coachingCards" className="nav-item">Coaching Cards</Link>
-                <Link to="shiftSchedule" className="nav-item">Schedule</Link>
-                <Link to="timeOffSheet" className="nav-item">Time Off Sheet</Link>
                 <button onClick={signOutUser} className="logout-btn">LOGOUT</button>
             </nav>
         </div>

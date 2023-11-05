@@ -66,7 +66,7 @@ export default function ShiftSchedule() {
                     rel="noopener noreferrer"
                     className="schedule-link"
                 >
-                    view {currentMonth} schedule
+                    view workout sheet
                 </a>
                 <i id={url} onClick={handleClick} className="fa-solid fa-trash"></i>
             </div>
@@ -108,17 +108,20 @@ export default function ShiftSchedule() {
 
     return (
         <div className="shift-schedule-page">
-            <input 
-                type="file"
-                name="pdf"
-                accept=".pdf"
-                onChange={onFileChange}
-                className="file-input"
-            />
-            <button onClick={uploadPdf} className="upload-btn">Upload File</button>
+            <div className="upload-div">
+                <input 
+                    type="file"
+                    name="pdf"
+                    accept=".pdf"
+                    onChange={onFileChange}
+                    className="file-input"
+                />
+                <button onClick={uploadPdf} className="upload-btn">Upload File</button>
+            </div>
             <div className="file-list">
                 {pdfUploadList && pdfLinks}
             </div>
         </div>
     )
+
 }

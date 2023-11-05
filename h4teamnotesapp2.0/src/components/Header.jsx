@@ -46,16 +46,15 @@ export default function Header() {
     const mobileNav =
             <nav className="mobile-nav" style={mobileMenuStyles}>
                 <Link to="/" onClick={toggleMenu} className="nav-item">Dashboard</Link>
-                <Link to="clientNotes" onClick={toggleMenu} className="nav-item">Client Notes</Link>
+                <Link to="WheatonNotes" onClick={toggleMenu} className="nav-item">Wheaton Notes</Link>
+                <Link to="GenevaNotes" onClick={toggleMenu} className="nav-item">Geneva Notes</Link>
                 <Link to="coachingCards" onClick={toggleMenu} className="nav-item">Coaching Cards</Link>
-                <Link to="shiftSchedule" onClick={toggleMenu} className="nav-item">Schedule</Link>
-                <Link to="timeOffSheet" onClick={toggleMenu} className="nav-item">Time Off Sheet</Link>
                 <button onClick={signOutUser} className="logout-btn">LOGOUT</button>
             </nav>
 
     return (
         <header className="site-header">
-            <h4 className="header-team">Team Wheaton</h4>
+            <h4 className="header-team">Team Notes</h4>
             {isMobile && <i ref={menuRef} className="fa-regular fa-user" onClick={toggleMenu}></i>}
             {isMobile && mobileNav}
         </header>

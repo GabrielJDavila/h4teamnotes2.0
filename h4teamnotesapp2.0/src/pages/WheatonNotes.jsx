@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react"
 import Note from "../components/Note"
-import BackBtn from "../components/BackBtn"
-import { getFromCollection, addToCollection, clientNotes, deleteItem, retrieveDoc, editItem } from "../firebase"
+import { getFromCollection, addToCollection, wheatonNotes, deleteItem, retrieveDoc, editItem } from "../firebase"
 import { ToggleContext1 } from "../App"
 
-export default function ClientNotes() {
+export default function WheatonNotes() {
+
     // state for initial note data returned from firestore
     const [noteData, setNoteData] = useState({
         title: "",
@@ -19,7 +19,7 @@ export default function ClientNotes() {
         text: ""
     })
     // state for data sorted and set from noteData, ready to be rendered
-    const [notesFromDB, setNotesFromDB] = useState([])
+    const [wheatonNotesFromDB, setWheatonNotesFromDB] = useState([])
     // initial value of itemId for currentNote
     const [currentItemId, setCurrentItemId] = useState(null)
     // state context for toggling of modal
@@ -28,9 +28,9 @@ export default function ClientNotes() {
     // function to get data from firestore, sort, and set to state ready to be rendered
     async function loadData() {
         try {
-            const data = await getFromCollection(clientNotes)
-            const sortedData = data.sort((a, b) => b.date.localeCompare(a.date))
-            setNotesFromDB(sortedData)
+            const wheatonData = await getFromCollection(wheatonData)
+            const sortedWheatonData = wheatonData.sort((a, b) => b.date.localeCompare(a.date))
+            setWheatonNotesFromDB(sortedWheatonData)
         } catch(e) {
             console.log("error fetching data: ", e)
         }
@@ -43,8 +43,8 @@ export default function ClientNotes() {
     // function to submit form and add note to firestore
     function handleSubmit(e) {
         e.preventDefault()
-        addToCollection(noteData.title, noteData.date, noteData.text, clientNotes)
-        clearNoteState()
+        addToCollection(noteData.title, noteData.date, noteData.text, wheatonNotes)
+        clearNoteState()       
         loadData()
     }
 
@@ -60,7 +60,7 @@ export default function ClientNotes() {
     // function to submit form and add edited note to firestore
     function handleEditSubmit(e) {
         e.preventDefault()
-        editItem(clientNotes, currentItemId, currentNote.title, currentNote.date, currentNote.text)
+        editItem(wheatonNotes, currentItemId, currentNote.title, currentNote.date, currentNote.text)
         loadData()
         toggleModal()
     }
@@ -68,7 +68,7 @@ export default function ClientNotes() {
     // handles deletion of note, re-renders data to update display
     function handleDelete(e) {
         const itemId = e.target.dataset.id
-        deleteItem(clientNotes, itemId)
+        deleteItem(wheatonNotes, itemId)
         loadData()
     }
 
@@ -91,7 +91,7 @@ export default function ClientNotes() {
     // retrieves single document from collection, updates currentNote with data
     async function loadSingleDoc(currentItemId) {
         try {
-            const docSnap = await retrieveDoc(clientNotes, currentItemId)
+            const docSnap = await retrieveDoc(wheatonNotes, currentItemId)
             const doc = docSnap.data()
             setCurrentNote(prev => ({
                 ...prev,
@@ -116,7 +116,7 @@ export default function ClientNotes() {
     }
 
     // maps through intial notes returned from firestore, returning a Note component for each item
-    const notes = notesFromDB.map(obj => {
+    const notes = wheatonNotesFromDB.map(obj => {
         return (
             <Note
                 key={obj.id}
@@ -131,85 +131,85 @@ export default function ClientNotes() {
     })
 
     return (
-        <div className="notes-page-container modal-overlay">
-            <BackBtn />
-            <form onSubmit={handleSubmit} className="add-new-note">
-                <h2>Add New Note</h2>
-                <div className="top-input-div">
-                    <input
-                        name="title"
-                        onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
-                        type="text"
-                        placeholder="note title"
-                        value={noteData.title}
-                        className="input-item"
-                        required
-                    />
-                    <input
-                        name="date"
-                        onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
-                        type="date"
-                        placeholder="date"
-                        value={noteData.date}
-                        className="input-item"
-                        required
-                    />
-                </div>
-                <textarea
-                    name="text"
-                    onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
-                    placeholder="write note here"
-                    value={noteData.text}
-                    className="note-text"
-                    required
-                ></textarea>
-                <button className="submit-btn">add note</button>
-            </form>
+        <main className="dashboard">
             
-            <h2 className="notes-page-title">Client Notes</h2>
-            <div className="notes-container">
-
-                {
-                toggle1 && currentNote ?
-                <form onSubmit={handleEditSubmit} className="update-modal">
-                    <div className="update-title-container">
-                        <h3>Edit Note</h3>
-                        <i className="fa-solid fa-x" onClick={toggleModal}></i>
-                    </div>
+            <section className="dash-section">
+                <form onSubmit={handleSubmit} className="add-new-note">
+                    <h2>Add New Note</h2>
                     <div className="top-input-div">
                         <input
                             name="title"
-                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                            onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
                             type="text"
                             placeholder="note title"
-                            value={currentNote.title}
+                            value={noteData.title}
                             className="input-item"
                             required
                         />
                         <input
                             name="date"
-                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                            onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
                             type="date"
                             placeholder="date"
-                            value={currentNote.date}
+                            value={noteData.date}
                             className="input-item"
                             required
                         />
                     </div>
                     <textarea
                         name="text"
-                        onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                        onChange={e => handleChange(e.target.name, e.target.value, setNoteData)}
                         placeholder="write note here"
-                        value={currentNote.text}
+                        value={noteData.text}
+                        className="note-text"
                         required
-                        className="update-textarea"
                     ></textarea>
-                    <button className="submit-btn">update note</button>
-                </form> : ""
-                }
+                    <button className="submit-btn">add note</button>
+                </form>
+            </section>
 
-                {notesFromDB && notes}
-            </div>
-        </div>
+            <section className="dash-section">
+                <h2>General</h2>
+                {
+                    toggle1 && currentNote ?
+                    <form onSubmit={handleEditSubmit} className="update-modal">
+                        <div className="update-title-container">
+                            <h3>Edit Note</h3>
+                            <i className="fa-solid fa-x" onClick={toggleModal}></i>
+                        </div>
+                        <div className="top-input-div">
+                            <input
+                                name="title"
+                                onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                                type="text"
+                                placeholder="note title"
+                                value={currentNote.title}
+                                className="input-item"
+                                required
+                            />
+                            <input
+                                name="date"
+                                onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                                type="date"
+                                placeholder="date"
+                                value={currentNote.date}
+                                className="input-item"
+                                required
+                            />
+                        </div>
+                        <textarea
+                            name="text"
+                            onChange={e => handleChange(e.target.name, e.target.value, setCurrentNote)}
+                            placeholder="write note here"
+                            value={currentNote.text}
+                            required
+                            className="update-textarea"
+                        ></textarea>
+                        <button className="submit-btn">update note</button>
+                    </form> : ""
+                }
+                {wheatonNotesFromDB && notes}
+            </section>
+        </main>
     )
 }

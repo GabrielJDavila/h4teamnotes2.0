@@ -1,11 +1,10 @@
 import { createContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import ClientNotes from "./pages/ClientNotes"
-import CoachingCards from "./pages/CoachingCards"
-import ShiftSchedule from "./pages/ShiftSchedule"
-import TimeSheet from "./pages/TimeSheet"
 import Dashboard from './pages/Dashboard'
+import WheatonNotes from './pages/WheatonNotes'
+import GenevaNotes from './pages/GenevaNotes'
+import CoachingCards from "./pages/CoachingCards"
 
 export const ToggleContext1 = createContext()
 export const ToggleContext2 = createContext()
@@ -20,12 +19,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
-              <Route path="clientNotes" element={<ClientNotes />}/>
-              {/* <Route path="workoutNotes" element={<WorkoutNotes />}/>
-              <Route path="gymEvents" element={<GymEvents />}/> */}
+              <Route path="WheatonNotes" element={<WheatonNotes />} />
+              <Route path="GenevaNotes" element={<GenevaNotes />} />
               <Route path="coachingCards" element={<CoachingCards />}/>
-              <Route path="shiftSchedule" element={<ShiftSchedule />}/>
-              <Route path="timeOffSheet" element={<TimeSheet />}/>
             </Route>
           </Routes>
         </BrowserRouter>
