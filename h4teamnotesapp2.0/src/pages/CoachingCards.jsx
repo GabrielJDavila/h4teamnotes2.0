@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import Note from "../components/Note"
+import Card from "../components/Card"
 import BackBtn from "../components/BackBtn"
 import { getFromCollection, addToCollection, coachingCards, deleteItem, retrieveDoc, editItem } from "../firebase"
 import { ToggleContext2 } from "../App"
@@ -8,6 +8,7 @@ export default function CoachingCards() {
     // all state variables initiated
     const {toggle2, setToggle2} = useContext(ToggleContext2)
     const [editToggle, setEditToggle] = useState(false)
+    const [deleteToggle, setDeleteToggle] = useState(false)
     const [card, setCard] = useState({
         title: "",
         date: "",
@@ -85,7 +86,14 @@ export default function CoachingCards() {
         e.preventDefault()
         editItem(coachingCards, currentItemId, currentNote.title, currentNote.date, currentNote.text)
         loadData()
-        editToggleModal()
+        toggleModal(setEditToggle)
+    }
+
+    function handleDeleteSubmit(e) {
+        e.preventDefault()
+        deleteItem(coachingCards, currentItemId)
+        loadData()
+        toggleModal(setDeleteToggle)
     }
 
     // clears form data after submitting
@@ -120,14 +128,14 @@ export default function CoachingCards() {
         const itemId = e.target.dataset.id
         loadSingleDoc(itemId)
         setCurrentItemId(itemId)
-        editToggleModal()
+        toggleModal(setEditToggle)
     }
 
     // handles click to trigger deletion of item
     function handleDelete(e) {
         const itemId = e.target.dataset.id
-        deleteItem(coachingCards, itemId)
-        loadData()
+        setCurrentItemId(itemId)
+        toggleModal(setDeleteToggle)
     }
 
     // toggles add client modal state
@@ -136,8 +144,8 @@ export default function CoachingCards() {
     }
 
     // toggles edit client modal state
-    function editToggleModal() {
-        setEditToggle(prev => !prev)
+    function toggleModal(modalState) {
+        modalState(prev => !prev)
     }
 
     // if state is true, displays add client modal
@@ -148,7 +156,7 @@ export default function CoachingCards() {
     // Maps through filtered data to render Note component for each object
     const cards = filteredItems.map(obj => {
         return (
-            <Note
+            <Card
                 key={obj.id}
                 id={obj.id}
                 title={obj.title}
@@ -241,7 +249,7 @@ export default function CoachingCards() {
                 <form onSubmit={handleEditSubmit} className="update-modal">
                     <div className="update-title-container">
                         <h3>Edit Card</h3>
-                        <i className="fa-solid fa-x" onClick={editToggleModal}></i>
+                        <i className="fa-solid fa-x" onClick={() => toggleModal(setEditToggle)}></i>
                     </div>
                     <div className="top-input-div">
                         <input
@@ -273,6 +281,16 @@ export default function CoachingCards() {
                     ></textarea>
                     <button className="submit-btn">update note</button>
                 </form> : ""
+                }
+                {
+                deleteToggle ?
+                <div className="delete-modal">
+                    <h3>Are you sure you want to delete this card?</h3>
+                    <div className="delete-btns-container">
+                    <button onClick={() => toggleModal(setDeleteToggle)} onclassName="cancel-delete">cancel</button>
+                    <button onClick={handleDeleteSubmit} className="confirm-delete">delete</button>
+                    </div>
+                </div> : ""
                 }
                 {cards}
             </div>

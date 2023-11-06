@@ -169,7 +169,7 @@ export default function GenevaNotes() {
             </section>
 
             <section className="dash-section">
-                <h2>General</h2>
+                <h2>Geneva Notes</h2>
                 {
                     toggle1 && currentNote ?
                     <form onSubmit={handleEditSubmit} className="update-modal">
