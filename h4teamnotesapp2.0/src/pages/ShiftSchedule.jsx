@@ -16,7 +16,6 @@ export default function ShiftSchedule() {
     const [currentMonth, setCurrentMonth] = useState("")
     // const [pathNames, setPathNames] = useState({})
     const uploadedFiles = ref(storage, "files/")
-    console.log(pdfUploadList)
 
     // uploading file to firebase storage
     function uploadPdf() {

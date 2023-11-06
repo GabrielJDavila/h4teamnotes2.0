@@ -28,7 +28,7 @@ export default function WheatonNotes() {
     // function to get data from firestore, sort, and set to state ready to be rendered
     async function loadData() {
         try {
-            const wheatonData = await getFromCollection(wheatonData)
+            const wheatonData = await getFromCollection(wheatonNotes)
             const sortedWheatonData = wheatonData.sort((a, b) => b.date.localeCompare(a.date))
             setWheatonNotesFromDB(sortedWheatonData)
         } catch(e) {
@@ -169,7 +169,7 @@ export default function WheatonNotes() {
             </section>
 
             <section className="dash-section">
-                <h2>General</h2>
+                <h2>Wheaton Notes</h2>
                 {
                     toggle1 && currentNote ?
                     <form onSubmit={handleEditSubmit} className="update-modal">
