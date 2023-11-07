@@ -287,7 +287,7 @@ export default function CoachingCards() {
                 <div className="delete-modal">
                     <h3>Are you sure you want to delete this card?</h3>
                     <div className="delete-btns-container">
-                    <button onClick={() => toggleModal(setDeleteToggle)} onclassName="cancel-delete">cancel</button>
+                    <button onClick={() => toggleModal(setDeleteToggle)} className="cancel-delete">cancel</button>
                     <button onClick={handleDeleteSubmit} className="confirm-delete">delete</button>
                     </div>
                 </div> : ""

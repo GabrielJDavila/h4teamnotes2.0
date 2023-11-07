@@ -96,8 +96,13 @@ export default function Layout() {
     return (
         <div className="site-wrapper">
             <Header />
-            {isDesktop && <SideNav/>}
-            <Outlet className="outlet"/>
+            <div className="outlet-wrapper">
+                {isDesktop && <SideNav/>}
+                <div className="filler-div">
+                    filler div
+                </div>
+                <Outlet className="outlet"/>
+            </div>
         </div>
     )
 }

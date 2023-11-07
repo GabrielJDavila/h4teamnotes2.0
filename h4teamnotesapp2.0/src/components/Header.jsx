@@ -30,8 +30,8 @@ export default function Header() {
     }
 
     const mobileMenuStyles = {
-        width: openMenu ? "65%" : "0",
-        height: openMenu ? "420px": "0",
+        width: openMenu ? "50%" : "0",
+        height: openMenu ? "370px": "0",
         transition: openMenu ? ".2s all ease" : ""
     }
 
