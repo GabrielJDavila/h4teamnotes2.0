@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
 import { getStorage } from "firebase/storage"
 import { getMessaging, getToken } from "firebase/messaging"
 import "firebase/messaging"
@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 
 // references
 export const auth = getAuth(app)
+const user = auth.currentUser
 const db = getFirestore(app)
 export const storage = getStorage(app)
 export const wheatonNotes = collection(db, "wheaton")
@@ -48,15 +49,29 @@ async function addToken(collectionType, token) {
     }
 }
 
+// get user uid
+const monitorAuthState = async () => {
+    onAuthStateChanged(auth, user => {
+        if(user) {
+            const uid = user.uid
+            console.log(uid)
+        } else {
+            console.log("error getting user")
+        }
+    })
+}
+monitorAuthState()
+
 // requesting to send notifications
 export function requestingPermission() {
     console.log("requesting permission...")
+
     Notification.requestPermission().then((permission) => {
         if(permission === "granted") {
             // retrieving token
             getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
                 if(currentToken) {
-                    console.log(currentToken)
+                    console.log("granted", currentToken)
                 } else {
                     console.log("no token")
                 }

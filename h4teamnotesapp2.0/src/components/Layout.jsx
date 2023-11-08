@@ -4,7 +4,6 @@ import { signIn, auth, addUser, users } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Header from "./Header"
 import SideNav from "./SideNav"
-import HomeBtn from "./HomeBtn"
 // export const userContext = userContext()
 
 export default function Layout() {
