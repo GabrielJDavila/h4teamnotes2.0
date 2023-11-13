@@ -1,8 +1,8 @@
-
+import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
 import { getStorage } from "firebase/storage"
-import { getMessaging, getToken } from "firebase/messaging"
+import { getMessaging, getToken, onMessage } from "firebase/messaging"
 import "firebase/messaging"
 import { getFirestore, collection, addDoc, doc, deleteDoc, setDoc, updateDoc, getDocs, getDoc, query, orderBy, Timestamp } from "firebase/firestore"
 
@@ -22,7 +22,6 @@ const app = initializeApp(firebaseConfig);
 
 // references
 export const auth = getAuth(app)
-const user = auth.currentUser
 const db = getFirestore(app)
 export const storage = getStorage(app)
 export const wheatonNotes = collection(db, "wheaton")
@@ -35,15 +34,14 @@ export const gymNotes = collection(db, "gymnotes")
 export const coachingCards = collection(db, "coachingcards")
 export const users = collection(db, "users")
 export const messaging = getMessaging(app)
+let userId = JSON.parse(localStorage.getItem("notes")) || null
+console.log(userId)
 
-async function addToken(collectionType, token) {
+async function addToken(uid, token) {
     try {
-        const itemRef = doc(collectionType, itemId)
-        await setDoc(itemRef, {
-            title: newTitle,
-            date: newDate,
-            text: newText
-        })
+        const userRef = doc(users, uid)
+        await setDoc(userRef, {fcmToken: token}, {merge: true})
+        console.log("token added successfully.")
     } catch(e) {
         console.log(e)
     }
@@ -54,7 +52,8 @@ const monitorAuthState = async () => {
     onAuthStateChanged(auth, user => {
         if(user) {
             const uid = user.uid
-            console.log(uid)
+            // addUser(uid)
+            localStorage.setItem("notes", JSON.stringify(uid))
         } else {
             console.log("error getting user")
         }
@@ -63,24 +62,57 @@ const monitorAuthState = async () => {
 monitorAuthState()
 
 // requesting to send notifications
-export function requestingPermission() {
-    console.log("requesting permission...")
 
-    Notification.requestPermission().then((permission) => {
-        if(permission === "granted") {
-            // retrieving token
-            getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
-                if(currentToken) {
-                    console.log("granted", currentToken)
+export function requestingPermission() {
+    console.log("Requesting permission...");
+
+    Notification.requestPermission().then(async (permission) => {
+        if (permission === "granted") {
+            try {
+                // Retrieving token
+                const currentToken = await getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" });
+                console.log("Current token:", currentToken);
+
+                if (userId) {
+                    console.log("UserId:", userId);
+                    addToken(userId, currentToken);
                 } else {
-                    console.log("no token")
+                    console.log("UserId not available.");
                 }
-            }).catch((err) => {
-                console.log("error occurred: ", err)
-            })
+            } catch (err) {
+                console.log("Error getting token:", err);
+            }
         }
-    })
+    });
 }
+
+// export function requestingPermission() {
+//     console.log("requesting permission...")
+
+//     Notification.requestPermission().then((permission) => {
+//         if(permission === "granted") {
+//             // retrieving token
+//             getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
+//                 if(currentToken) {
+//                     console.log("granted", currentToken)
+
+//                     if(userId) {
+//                         console.log(userId)
+//                         addToken(userId, currentToken)
+//                     } else {
+//                         console.log("userId not available.")
+//                     }
+                    
+
+//                 } else {
+//                     console.log("no token")
+//                 }
+//             }).catch((err) => {
+//                 console.log("error occurred: ", err)
+//             })
+//         }
+//     })
+// }
 
 
 // sign in app
@@ -99,12 +131,12 @@ export const logout = async () => {
 }
 
 // add user info to firestore
-export async function addUser(collection, userData) {
+export async function addUser(userData) {
     try {
         console.log(userData)
-        const docRef = await addDoc(collection, {
-            email: userData
-        })
+        const usersCollection = collection(db, "users")
+        const docRef = await addDoc(usersCollection, userData)
+        
     } catch(e) {
         console.error("error adding user: ", e)
     }

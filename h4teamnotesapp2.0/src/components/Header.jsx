@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { logout, requestingPermission } from "../firebase"
+import RequestPermissionModal from "./RequestPermissionModal"
 
 
 export default function Header() {
@@ -55,6 +56,7 @@ export default function Header() {
     return (
         <header className="site-header">
             <h4 className="header-team">Team Notes</h4>
+            {/* <RequestPermissionModal />  */}
             {isMobile && <i ref={menuRef} className="fa-regular fa-user" onClick={toggleMenu}></i>}
             {isMobile && mobileNav}
         </header>

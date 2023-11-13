@@ -13,7 +13,7 @@ export default function RequestPermissionModal() {
 
     return (
         <div className="modal">
-            <h3 className="modal-header">Allow this app to send notifications</h3>
+            {/* <h3 className="modal-header">Allow this app to send notifications</h3> */}
             <div className="notification-container">
                 <div className="toggle-btn">
                     <input

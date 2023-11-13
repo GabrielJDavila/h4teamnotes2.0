@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react"
 import { NavLink, Link } from "react-router-dom"
-import RequestPermissionModal from "../components/RequestPermissionModal"
 import Note from "../components/Note"
 import ShiftSchedule from "./ShiftSchedule"
 import { getFromCollection, addToCollection, generalNotes, genevaNotes, wheatonNotes, deleteItem, retrieveDoc, editItem } from "../firebase"
@@ -264,8 +263,7 @@ export default function Dashboard() {
                         </p>
                     </Link>
                 </div>
-            </div> */}
-            <RequestPermissionModal />         
+            </div> */}        
         </main>
     )
 }
