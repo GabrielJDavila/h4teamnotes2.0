@@ -64,26 +64,35 @@ monitorAuthState()
 // requesting to send notifications
 
 export function requestingPermission() {
+
     console.log("Requesting permission...");
 
-    Notification.requestPermission().then(async (permission) => {
-        if (permission === "granted") {
-            try {
-                // Retrieving token
-                const currentToken = await getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" });
-                console.log("Current token:", currentToken);
-
-                if (userId) {
-                    console.log("UserId:", userId);
-                    addToken(userId, currentToken);
-                } else {
-                    console.log("UserId not available.");
-                }
-            } catch (err) {
-                console.log("Error getting token:", err);
-            }
+    getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" }).then((currentToken) => {
+        if(currentToken) {
+            console.log(currentToken)
+        } else {
+            console.log("no token available. request permission first.")
         }
-    });
+    })
+
+    // Notification.requestPermission().then(async (permission) => {
+    //     if (permission === "granted") {
+    //         try {
+    //             // Retrieving token
+    //             const currentToken = await getToken(messaging, { vapidKey: "BPL0X0u0PoOB_38lTQESg8ICbv2wkkc8quEZvJx27oWKimwAUOmMUjqD_ppCLU97VMK4LGT-i2KH0P3wCI5CqjQ" });
+    //             console.log("Current token:", currentToken);
+    //             evEmlzxE175IDCt1ZD8FEU:APA91bHrqeFZQHdoTYMGq7-weERenM7u0jucH4DCf4mW1TLuU2bsfa6WxLR87nsUrO6UOLF6T1r-zqtPH1FQR7OUauqfIjKTJU3h4M7q9K3lcr4LxSjcyZ_Q6__PFoyGSp-7vipW23DX
+    //             // if (userId) {
+    //             //     console.log("UserId:", userId);
+    //             //     addToken(userId, currentToken);
+    //             // } else {
+    //             //     console.log("UserId not available.");
+    //             // }
+    //         } catch (err) {
+    //             console.log("Error getting token:", err);
+    //         }
+    //     }
+    // });
 }
 
 // export function requestingPermission() {

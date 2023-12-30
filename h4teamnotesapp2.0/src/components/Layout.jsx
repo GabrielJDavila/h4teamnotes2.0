@@ -1,6 +1,6 @@
 import {useState, useEffect, createContext} from "react"
 import { Outlet, Link } from "react-router-dom"
-import { signIn, auth, addUser, users } from "../firebase"
+import { signIn, auth, addUser, users, requestingPermission } from "../firebase"
 import { onAuthStateChanged } from "firebase/auth"
 import Header from "./Header"
 import SideNav from "./SideNav"
@@ -31,6 +31,7 @@ export default function Layout() {
             onAuthStateChanged(auth, user => {
                 if(user) {
                     setLoggedIn(!!user)
+                    requestingPermission()
                 }
             })
         }

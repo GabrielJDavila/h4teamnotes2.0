@@ -56,6 +56,7 @@ export default function Header() {
     return (
         <header className="site-header">
             <h4 className="header-team">Team Notes</h4>
+            <button className="ask-perm-notifications">Click for Notifications</button>
             {/* <RequestPermissionModal />  */}
             {isMobile && <i ref={menuRef} className="fa-regular fa-user" onClick={toggleMenu}></i>}
             {isMobile && mobileNav}

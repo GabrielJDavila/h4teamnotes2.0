@@ -226,44 +226,7 @@ export default function Dashboard() {
             <section className="dash-section">
                 <h2>Workout Sheet</h2>
                 <ShiftSchedule />
-            </section>
-            {/* <div className="folders-container">
-                <div className="folder-container">
-                    <Link to="generalNotes" className="link-portal">
-                        <i className="fa-solid fa-folder"></i>
-                        <p className="link-text">
-                            NOTES
-                        </p>
-                    </Link>
-                </div>
-
-                <div className="folder-container">
-                    <Link to="coachingCards" className="link-portal">
-                        <i className="fa-solid fa-folder"></i>
-                        <p className="link-text">
-                            COACHING CARDS
-                        </p>
-                    </Link>
-                </div> 
-
-                <div className="folder-container">
-                    <Link to="shiftSchedule" className="link-portal">
-                        <i className="fa-solid fa-folder"></i>
-                        <p className="link-text">
-                            SCHEDULE
-                        </p>
-                    </Link>
-                </div>
-
-                <div className="folder-container">
-                    <Link to="timeOffSheet" className="link-portal">
-                        <i className="fa-solid fa-folder"></i>
-                        <p className="link-text">
-                            REQUEST TIME OFF
-                        </p>
-                    </Link>
-                </div>
-            </div> */}        
+            </section>      
         </main>
     )
 }
